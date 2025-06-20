@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { QrCode } from "lucide-react"
-import QRCodeLib from "qrcode"
 
 interface QRCodeSectionProps {
   pageUrl: string
@@ -14,7 +13,9 @@ export function QRCodeSection({ pageUrl }: QRCodeSectionProps) {
   useEffect(() => {
     const generateQR = async () => {
       try {
-        const qrUrl = await QRCodeLib.toDataURL(pageUrl, {
+        // Dynamically import qrcode to reduce initial bundle size
+        const QRCode = await import("qrcode")
+        const qrUrl = await QRCode.default.toDataURL(pageUrl, {
           width: 200,
           margin: 2,
           color: {

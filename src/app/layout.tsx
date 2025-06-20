@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { PWAInstaller } from "@/components/PWAInstaller";
+import { WebVitalsReporter } from "@/components/WebVitalsReporter";
+import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -68,6 +70,8 @@ export default function RootLayout({
       <body className={`${notoSansJP.className} antialiased`}>
         {children}
         <PWAInstaller />
+        <WebVitalsReporter />
+        <AnalyticsProvider />
       </body>
     </html>
   );

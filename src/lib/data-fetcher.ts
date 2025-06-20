@@ -5,7 +5,11 @@
 import { readFile } from 'fs/promises'
 import { join } from 'path'
 import { WBGTData, getWBGTLevel } from './data-processor'
-import { getAllCompleteLocations } from './complete-locations'
+// Lazy load large data sets to reduce initial bundle size
+const getAllCompleteLocations = async () => {
+  const { getAllCompleteLocations: getLocations } = await import('./complete-locations')
+  return getLocations()
+}
 
 export interface LocationInfo {
   name: string
@@ -13,11 +17,26 @@ export interface LocationInfo {
 }
 
 /**
- * 地点コードから地点情報を取得
+ * 地点コードから地点情報を取得（同期版 - フロントエンド用）
  */
-export function getLocationInfo(locationCode: string): LocationInfo | null {
+export function getLocationInfoSync(locationCode: string): LocationInfo | null {
+  // Server-side rendering用の同期版
+  try {
+    const { getAllCompleteLocations: getLocations } = require('./complete-locations')
+    const allLocations = getLocations()
+    const location = allLocations.find((loc: any) => loc.code === locationCode)
+    return location ? { name: location.name, prefecture: location.prefecture } : null
+  } catch {
+    return null
+  }
+}
+
+/**
+ * 地点コードから地点情報を取得（非同期版 - サーバーサイド用）
+ */
+export async function getLocationInfo(locationCode: string): Promise<LocationInfo | null> {
   // 840地点の完全なデータベースから検索
-  const allLocations = getAllCompleteLocations()
+  const allLocations = await getAllCompleteLocations()
   const location = allLocations.find(loc => loc.code === locationCode)
   return location ? { name: location.name, prefecture: location.prefecture } : null
 }
@@ -44,7 +63,7 @@ export async function getWBGTData(locationCode: string): Promise<WBGTData | null
     // データが見つからない場合、モックデータを生成
     if (!locationData) {
       console.warn(`WBGT data not found for location: ${locationCode}, generating mock data`)
-      const locationInfo = getLocationInfo(locationCode)
+      const locationInfo = await getLocationInfo(locationCode)
       
       if (!locationInfo) {
         console.error(`Location info not found for: ${locationCode}`)
@@ -207,17 +226,22 @@ export async function getDataUpdateTime(): Promise<{ wbgt: string; temperature: 
  * 地点検索（名前による部分一致）
  */
 export function searchLocations(query: string): { code: string; info: LocationInfo }[] {
-  const allLocations = getAllCompleteLocations()
-  const results: { code: string; info: LocationInfo }[] = []
-  
-  allLocations.forEach(location => {
-    if (location.name.includes(query) || location.prefecture.includes(query)) {
-      results.push({ 
-        code: location.code, 
-        info: { name: location.name, prefecture: location.prefecture }
-      })
-    }
-  })
-  
-  return results.slice(0, 50) // 最大50件に制限
+  try {
+    const { getAllCompleteLocations: getLocations } = require('./complete-locations')
+    const allLocations = getLocations()
+    const results: { code: string; info: LocationInfo }[] = []
+    
+    allLocations.forEach((location: any) => {
+      if (location.name.includes(query) || location.prefecture.includes(query)) {
+        results.push({ 
+          code: location.code, 
+          info: { name: location.name, prefecture: location.prefecture }
+        })
+      }
+    })
+    
+    return results.slice(0, 50) // 最大50件に制限
+  } catch {
+    return []
+  }
 }

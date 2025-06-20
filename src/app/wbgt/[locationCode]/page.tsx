@@ -11,8 +11,10 @@ import { ActivityGuideSelector } from '@/components/ActivityGuideSelector'
 import { ShareAndSaveButtons } from '@/components/ShareAndSaveButtons'
 import { QRCodeSection } from '@/components/QRCodeSection'
 import { NavigationHeader } from '@/components/NavigationHeader'
+import { FavoriteButton } from '@/components/FavoriteButton'
+import { WeatherReportStructuredData } from '@/components/StructuredData'
 import { Info } from 'lucide-react'
-import { getWBGTData, getLocationInfo } from '@/lib/data-fetcher'
+import { getWBGTData, getLocationInfoSync } from '@/lib/data-fetcher'
 import { getAllLocationCodesArray } from '@/lib/complete-locations'
 
 interface PageProps {
@@ -88,7 +90,7 @@ export const dynamicParams = true
 // メタデータ生成
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locationCode } = await params
-  const locationInfo = getLocationInfo(locationCode)
+  const locationInfo = getLocationInfoSync(locationCode)
   
   if (!locationInfo) {
     return {
@@ -96,6 +98,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: '指定された地点の暑さ指数情報が見つかりません。'
     }
   }
+  
+  // Get current WBGT data for OGP
+  const wbgtData = await getWBGTData(locationCode)
+  const ogImageUrl = wbgtData 
+    ? `${process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com'}/api/og?location=${encodeURIComponent(locationInfo.name)}&wbgt=${wbgtData.wbgt}&temp=${wbgtData.temperature}&humidity=${wbgtData.humidity}`
+    : undefined
   
   return {
     title: `${locationInfo.name}の暑さ指数 - 熱中症予防情報`,
@@ -105,11 +113,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: `現在の暑さ指数とともに熱中症予防情報をお届けします`,
       url: `https://your-domain.com/wbgt/${locationCode}`,
       type: 'website',
+      images: ogImageUrl ? [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: `${locationInfo.name}の暑さ指数`,
+        }
+      ] : undefined,
     },
     twitter: {
       card: 'summary_large_image',
       title: `${locationInfo.name}の暑さ指数`,
       description: `現在の暑さ指数とともに熱中症予防情報をお届けします`,
+      images: ogImageUrl ? [ogImageUrl] : undefined,
     }
   }
 }
@@ -127,22 +144,49 @@ export default async function WBGTLocationPage({ params }: PageProps) {
   const pageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://localhost:3000'}/wbgt/${locationCode}`
   
 
+  // Get WBGT level info
+  const { getWBGTLevel } = await import('@/lib/data-processor')
+  const levelInfo = getWBGTLevel(wbgtData.wbgt)
+
   return (
     <div className="min-h-screen bg-gray-50">
+      <WeatherReportStructuredData
+        locationCode={locationCode}
+        locationName={wbgtData.locationName}
+        prefecture={wbgtData.prefecture}
+        wbgt={wbgtData.wbgt}
+        temperature={wbgtData.temperature}
+        humidity={wbgtData.humidity}
+        level={levelInfo}
+        timestamp={wbgtData.timestamp}
+      />
+      
       {/* ヘッダー */}
       <NavigationHeader />
 
       {/* メインコンテンツ */}
       <main className="max-w-6xl mx-auto px-4 py-6 space-y-8">
         {/* メインビジュアライゼーション */}
-        <WBGTVisualization
-          location={wbgtData.locationName}
-          prefecture={wbgtData.prefecture}
-          wbgt={wbgtData.wbgt}
-          temperature={wbgtData.temperature}
-          humidity={wbgtData.humidity}
-          updateTime={wbgtData.timestamp}
-        />
+        <div className="relative">
+          <WBGTVisualization
+            location={wbgtData.locationName}
+            prefecture={wbgtData.prefecture}
+            wbgt={wbgtData.wbgt}
+            temperature={wbgtData.temperature}
+            humidity={wbgtData.humidity}
+            updateTime={wbgtData.timestamp}
+          />
+          {/* お気に入りボタン */}
+          <div className="absolute top-4 right-4">
+            <FavoriteButton
+              locationCode={locationCode}
+              locationName={wbgtData.locationName}
+              prefecture={wbgtData.prefecture}
+              size="lg"
+              className="bg-white shadow-md"
+            />
+          </div>
+        </div>
 
         {/* 共有・保存ボタンエリア */}
         <ShareAndSaveButtons

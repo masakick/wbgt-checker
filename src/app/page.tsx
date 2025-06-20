@@ -4,7 +4,9 @@
 
 import Link from 'next/link'
 import { Search, MapPin, Thermometer } from 'lucide-react'
-import { getLocationInfo } from '@/lib/data-fetcher'
+import { getLocationInfoSync } from '@/lib/data-fetcher'
+import { FavoritesList } from '@/components/FavoritesList'
+import { WebSiteStructuredData } from '@/components/StructuredData'
 
 export default function HomePage() {
   // 主要地点のリスト
@@ -25,6 +27,8 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
+      <WebSiteStructuredData />
+      
       {/* ヘッダー */}
       <header className="bg-white shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-6">
@@ -65,7 +69,7 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {majorLocations.map((location) => {
-              const info = getLocationInfo(location.code)
+              const info = getLocationInfoSync(location.code)
               if (!info) return null
               
               return (
@@ -110,6 +114,9 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+
+        {/* お気に入り地点 */}
+        <FavoritesList />
 
         {/* 使い方 */}
         <div className="bg-blue-50 rounded-2xl p-6 mt-8">

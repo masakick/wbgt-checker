@@ -9,16 +9,25 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.80.10",
+    "@types/qrcode": "^1.5.5",
+    "autoprefixer": "^10.4.21",
+    "canvas": "^3.1.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.518.0",
+    "next": "15.3.4",
+    "qrcode": "^1.5.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.3.4"
+    "tailwind-merge": "^3.3.1",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@tailwindcss/postcss": "^4.1.10",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

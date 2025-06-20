@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/fetch-temperature",
+      "schedule": "20 * * * *"
+    },
+    {
+      "path": "/api/cron/fetch-wbgt", 
+      "schedule": "40 * * * *"
+    }
+  ]
+}

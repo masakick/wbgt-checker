@@ -1,103 +1,181 @@
-import Image from "next/image";
+/**
+ * トップページ - 地点選択画面
+ */
 
-export default function Home() {
+import Link from 'next/link'
+import { Search, MapPin, Thermometer } from 'lucide-react'
+import { getLocationInfo } from '@/lib/data-fetcher'
+
+export default function HomePage() {
+  // 主要地点のリスト
+  const majorLocations = [
+    { code: '44132', region: '関東' },
+    { code: '46106', region: '関東' },
+    { code: '47662', region: '関西' },
+    { code: '27412', region: '中部' },
+    { code: '40201', region: '九州' },
+    { code: '48141', region: '北海道' },
+    { code: '04101', region: '東北' },
+    { code: '50301', region: '九州・沖縄' },
+    { code: '21101', region: '中部' },
+    { code: '15101', region: '中部' },
+    { code: '17201', region: '中部' },
+    { code: '39101', region: '四国' }
+  ]
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
+      {/* ヘッダー */}
+      <header className="bg-white shadow-sm">
+        <div className="max-w-6xl mx-auto px-4 py-6">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              暑さ指数チェッカー
+            </h1>
+            <p className="text-gray-600">
+              全国840地点の暑さ指数（WBGT）をリアルタイムで確認
+            </p>
+          </div>
+        </div>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+      {/* メインコンテンツ */}
+      <main className="max-w-6xl mx-auto px-4 py-8">
+        {/* 検索セクション */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+          <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+            <Search className="w-5 h-5" />
+            地点を検索
+          </h2>
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="地名で検索（例：東京、大阪）"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <Search className="absolute right-3 top-3 w-5 h-5 text-gray-400" />
+          </div>
+        </div>
+
+        {/* 主要地点 */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+            <MapPin className="w-5 h-5" />
+            主要地点
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {majorLocations.map((location) => {
+              const info = getLocationInfo(location.code)
+              if (!info) return null
+              
+              return (
+                <Link
+                  key={location.code}
+                  href={`/wbgt/${location.code}`}
+                  className="block p-4 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-semibold text-gray-900">{info.name}</h3>
+                      <p className="text-sm text-gray-600">{info.prefecture}</p>
+                      <p className="text-xs text-blue-600 mt-1">{location.region}地方</p>
+                    </div>
+                    <Thermometer className="w-5 h-5 text-gray-400" />
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* 地方別セクション */}
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+            <MapPin className="w-5 h-5" />
+            地方別で選択
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              '北海道', '東北', '関東', '中部', 
+              '関西', '中国', '四国', '九州'
+            ].map((region) => (
+              <Link
+                key={region}
+                href={`/region/${region}`}
+                className="block p-4 text-center border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all"
+              >
+                <h3 className="font-semibold text-gray-900">{region}</h3>
+                <p className="text-sm text-gray-600 mt-1">地方</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* 使い方 */}
+        <div className="bg-blue-50 rounded-2xl p-6 mt-8">
+          <h2 className="text-xl font-bold mb-4 text-blue-900">
+            暑さ指数について
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold mb-2 text-blue-800">警戒レベル</h3>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-red-500 rounded-full"></div>
+                  <span>危険（31°C以上）: 運動は原則中止</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-orange-500 rounded-full"></div>
+                  <span>厳重警戒（28-31°C）: 激しい運動は中止</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
+                  <span>警戒（25-28°C）: 積極的に休息</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                  <span>注意（21-25°C）: 積極的に水分補給</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
+                  <span>安全（21°C未満）: 適宜水分補給</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2 text-blue-800">このサイトの特徴</h3>
+              <ul className="space-y-2 text-sm">
+                <li>• 全国840地点のリアルタイム情報</li>
+                <li>• 21時点の詳細予報表示</li>
+                <li>• 運動指針と活動場所ガイド</li>
+                <li>• QRコードでの情報共有</li>
+                <li>• PWA対応でホーム画面に追加可能</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* フッター */}
+      <footer className="bg-gray-800 text-white py-8 mt-12">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <p className="text-sm">
+            データ提供：
+            <a href="https://www.wbgt.env.go.jp/sp/" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">
+              環境省
+            </a>
+            ,
+            <a href="https://www.jma.go.jp/jma/index.html" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">
+              気象庁
+            </a>
+            <br />
+            開発：慶應義塾大学大学院 政策・メディア研究科 
+            <a href="https://twitter.com/masakick" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">
+              山辺真幸
+            </a>
+          </p>
+        </div>
       </footer>
     </div>
-  );
+  )
 }

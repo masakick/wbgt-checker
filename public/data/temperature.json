@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-06-20T05:20:00.000Z",
+  "updateTime": "2025年6月20日 14:20",
+  "dataCount": 3,
+  "data": [
+    {
+      "locationCode": "44132",
+      "locationName": "東京",
+      "temperature": 32.1,
+      "humidity": 65,
+      "timestamp": "2025-06-20T05:20:00.000Z"
+    },
+    {
+      "locationCode": "46106",
+      "locationName": "横浜",
+      "temperature": 30.8,
+      "humidity": 68,
+      "timestamp": "2025-06-20T05:20:00.000Z"
+    },
+    {
+      "locationCode": "47662",
+      "locationName": "大阪",
+      "temperature": 33.5,
+      "humidity": 62,
+      "timestamp": "2025-06-20T05:20:00.000Z"
+    }
+  ]
+}

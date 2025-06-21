@@ -101,7 +101,7 @@ export function DetailedForecastTable({
                     level.color
                   )}
                 >
-                  {forecast.wbgt}°C
+                  {forecast.wbgt}
                 </span>
               </div>
               <div className="flex justify-between items-center">

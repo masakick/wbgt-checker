@@ -21,7 +21,14 @@ export function RegionSelector() {
   const getLocationsByPrefecture = (prefectureId: string) => {
     const allLocations = getAllCompleteLocations()
     return allLocations.filter(location => {
-      // 地点コードの最初の2桁が都道府県IDと一致するものを探す
+      // 沖縄県の特殊処理
+      if (prefectureId === "9194") {
+        // 沖縄県の地点コードは91, 92, 93, 94で始まる
+        const locationPrefix = location.code.slice(0, 2)
+        return locationPrefix === "91" || locationPrefix === "92" || 
+               locationPrefix === "93" || locationPrefix === "94"
+      }
+      // 通常の都道府県: 地点コードの最初の2桁が都道府県IDと一致するものを探す
       const locationPrefectureId = location.code.slice(0, 2)
       return locationPrefectureId === prefectureId
     })

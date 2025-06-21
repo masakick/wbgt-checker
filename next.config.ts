@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'qrcode', 'web-vitals'],
   },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
   // Performance optimizations
   compress: true,
   poweredByHeader: false,

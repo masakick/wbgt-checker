@@ -60,7 +60,6 @@ export function WBGTVisualization({
           <div className="space-y-4">
             <div className="text-8xl md:text-9xl font-black tracking-tight">
               {wbgt}
-              <span className="text-5xl md:text-6xl">°C</span>
             </div>
             <div className="text-3xl md:text-4xl font-bold">
               {wbgtLevel.label}
@@ -95,10 +94,16 @@ export function WBGTVisualization({
 
         {/* 下部のナビゲーション */}
         <div className="flex justify-between items-center">
-          <button className="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 hover:bg-white/30 transition-colors">
+          <button 
+            onClick={() => window.location.href = '/'}
+            className="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 hover:bg-white/30 transition-colors"
+          >
             地点を選択
           </button>
-          <button className="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 hover:bg-white/30 transition-colors">
+          <button 
+            onClick={() => window.location.reload()}
+            className="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 hover:bg-white/30 transition-colors"
+          >
             データ再読込み
           </button>
         </div>

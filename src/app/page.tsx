@@ -3,10 +3,13 @@
  */
 
 import Link from 'next/link'
-import { Search, MapPin, Thermometer } from 'lucide-react'
+import { MapPin, Thermometer } from 'lucide-react'
 import { getLocationInfoSync } from '@/lib/data-fetcher'
 import { FavoritesList } from '@/components/FavoritesList'
 import { WebSiteStructuredData } from '@/components/StructuredData'
+import { NavigationHeader } from '@/components/NavigationHeader'
+import { SearchBar } from '@/components/SearchBar'
+import { RegionSelector } from '@/components/RegionSelector'
 
 export default function HomePage() {
   // 主要地点のリスト
@@ -29,36 +32,21 @@ export default function HomePage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
       <WebSiteStructuredData />
       
-      {/* ヘッダー */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-6">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              暑さ指数チェッカー
-            </h1>
-            <p className="text-gray-600">
-              全国840地点の暑さ指数（WBGT）をリアルタイムで確認
-            </p>
-          </div>
-        </div>
-      </header>
+      {/* ナビゲーションヘッダー */}
+      <NavigationHeader />
 
       {/* メインコンテンツ */}
       <main className="max-w-6xl mx-auto px-4 py-8">
+        {/* お気に入り地点（トップに配置） */}
+        <FavoritesList />
+
         {/* 検索セクション */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 mt-8">
           <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-            <Search className="w-5 h-5" />
+            <MapPin className="w-5 h-5" />
             地点を検索
           </h2>
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="地名で検索（例：東京、大阪）"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-            <Search className="absolute right-3 top-3 w-5 h-5 text-gray-400" />
-          </div>
+          <SearchBar />
         </div>
 
         {/* 主要地点 */}
@@ -98,67 +86,38 @@ export default function HomePage() {
             <MapPin className="w-5 h-5" />
             地方別で選択
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              '北海道', '東北', '関東', '中部', 
-              '関西', '中国', '四国', '九州'
-            ].map((region) => (
-              <Link
-                key={region}
-                href={`/region/${region}`}
-                className="block p-4 text-center border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all"
-              >
-                <h3 className="font-semibold text-gray-900">{region}</h3>
-                <p className="text-sm text-gray-600 mt-1">地方</p>
-              </Link>
-            ))}
-          </div>
+          <RegionSelector />
         </div>
-
-        {/* お気に入り地点 */}
-        <FavoritesList />
 
         {/* 使い方 */}
         <div className="bg-blue-50 rounded-2xl p-6 mt-8">
           <h2 className="text-xl font-bold mb-4 text-blue-900">
             暑さ指数について
           </h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-semibold mb-2 text-blue-800">警戒レベル</h3>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-red-500 rounded-full"></div>
-                  <span>危険（31°C以上）: 運動は原則中止</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-orange-500 rounded-full"></div>
-                  <span>厳重警戒（28-31°C）: 激しい運動は中止</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
-                  <span>警戒（25-28°C）: 積極的に休息</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                  <span>注意（21-25°C）: 積極的に水分補給</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                  <span>安全（21°C未満）: 適宜水分補給</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2 text-blue-800">このサイトの特徴</h3>
-              <ul className="space-y-2 text-sm">
-                <li>• 全国840地点のリアルタイム情報</li>
-                <li>• 21時点の詳細予報表示</li>
-                <li>• 運動指針と活動場所ガイド</li>
-                <li>• QRコードでの情報共有</li>
-                <li>• PWA対応でホーム画面に追加可能</li>
-              </ul>
-            </div>
+          <div>
+            <h3 className="font-semibold mb-2 text-blue-800">警戒レベル</h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-red-500 rounded-full"></div>
+                <span>危険（31°C以上）: 運動は原則中止</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-orange-500 rounded-full"></div>
+                <span>厳重警戒（28-31°C）: 激しい運動は中止</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
+                <span>警戒（25-28°C）: 積極的に休息</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                <span>注意（21-25°C）: 積極的に水分補給</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
+                <span>安全（21°C未満）: 適宜水分補給</span>
+              </li>
+            </ul>
           </div>
         </div>
       </main>

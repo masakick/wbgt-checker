@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Heart, Trash2, Clock } from 'lucide-react'
 import { useFavorites } from '@/hooks/useFavorites'
 import { cn } from '@/lib/utils'
+import { formatJapaneseTime } from '@/lib/format-time'
 
 interface WBGTData {
   code: string
@@ -26,15 +27,6 @@ export function FavoritesList() {
   // 地点コードの文字列化で安定した依存関係を作る
   const locationCodesKey = useMemo(() => locationCodes.join(','), [locationCodes])
 
-  // 日本語形式の時刻フォーマット関数
-  const formatJapaneseTime = (dateString: string): string => {
-    const date = new Date(dateString)
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    const hour = date.getHours()
-    const minute = date.getMinutes()
-    return `${month}月${day}日 ${hour}時${minute.toString().padStart(2, '0')}分`
-  }
 
   // 安定したモックデータを生成する関数
   const generateStableMockData = useMemo(() => {

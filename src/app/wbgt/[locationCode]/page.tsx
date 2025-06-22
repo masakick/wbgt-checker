@@ -16,6 +16,7 @@ import { WeatherReportStructuredData } from '@/components/StructuredData'
 import { Info } from 'lucide-react'
 import { getWBGTData, getLocationInfoSync } from '@/lib/data-fetcher'
 import { getAllLocationCodesArray } from '@/lib/complete-locations'
+import { formatJapaneseTime } from '@/lib/format-time'
 
 interface PageProps {
   params: Promise<{
@@ -166,27 +167,26 @@ export default async function WBGTLocationPage({ params }: PageProps) {
 
       {/* メインコンテンツ */}
       <main className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-        {/* メインビジュアライゼーション */}
-        <div className="relative">
-          <WBGTVisualization
-            location={wbgtData.locationName}
+        {/* お気に入りボタン（固定位置） */}
+        <div className="fixed top-20 right-4 z-50 md:top-24 md:right-8">
+          <FavoriteButton
+            locationCode={locationCode}
+            locationName={wbgtData.locationName}
             prefecture={wbgtData.prefecture}
-            wbgt={wbgtData.wbgt}
-            temperature={wbgtData.temperature}
-            humidity={wbgtData.humidity}
-            updateTime={wbgtData.timestamp}
+            size="lg"
+            className="bg-white shadow-lg hover:shadow-xl"
           />
-          {/* お気に入りボタン */}
-          <div className="absolute top-4 right-4">
-            <FavoriteButton
-              locationCode={locationCode}
-              locationName={wbgtData.locationName}
-              prefecture={wbgtData.prefecture}
-              size="lg"
-              className="bg-white shadow-md"
-            />
-          </div>
         </div>
+
+        {/* メインビジュアライゼーション */}
+        <WBGTVisualization
+          location={wbgtData.locationName}
+          prefecture={wbgtData.prefecture}
+          wbgt={wbgtData.wbgt}
+          temperature={wbgtData.temperature}
+          humidity={wbgtData.humidity}
+          updateTime={wbgtData.timestamp}
+        />
 
         {/* 共有・保存ボタンエリア */}
         <ShareAndSaveButtons
@@ -207,7 +207,7 @@ export default async function WBGTLocationPage({ params }: PageProps) {
         <DetailedForecastTable
           location={wbgtData.locationName}
           prefecture={wbgtData.prefecture}
-          updateTime={new Date(wbgtData.timestamp).toLocaleString('ja-JP')}
+          updateTime={formatJapaneseTime(wbgtData.timestamp)}
           forecasts={wbgtData.forecast}
         />
 

@@ -2,6 +2,7 @@
 
 import { cn, getWBGTLevel } from "@/lib/utils"
 import { Thermometer, Droplets, Clock, Zap } from "lucide-react"
+import { formatJapaneseTime } from "@/lib/format-time"
 
 interface WBGTVisualizationProps {
   location: string
@@ -50,7 +51,7 @@ export function WBGTVisualization({
           <h1 className="text-3xl md:text-4xl font-bold mb-2">{location}（{prefecture}）の暑さ指数</h1>
           <div className="flex items-center justify-center gap-2 text-sm opacity-90">
             <Clock className="w-4 h-4" />
-            <span>最終更新: {updateTime}</span>
+            <span>最終更新: {formatJapaneseTime(updateTime)}</span>
           </div>
         </div>
 

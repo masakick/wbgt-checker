@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { Thermometer, Clock } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { formatJapaneseTime } from '@/lib/format-time'
 
 interface WBGTData {
   code: string
@@ -32,15 +33,6 @@ export function MainLocations() {
   const locationCodes = MAJOR_LOCATIONS.map(loc => loc.code)
   const locationCodesKey = locationCodes.join(',')
 
-  // 日本語形式の時刻フォーマット関数
-  const formatJapaneseTime = (dateString: string): string => {
-    const date = new Date(dateString)
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    const hour = date.getHours()
-    const minute = date.getMinutes()
-    return `${month}月${day}日 ${hour}時${minute.toString().padStart(2, '0')}分`
-  }
 
   // 安定したモックデータを生成する関数
   const generateStableMockData = useMemo(() => {

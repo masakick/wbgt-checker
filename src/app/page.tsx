@@ -2,32 +2,15 @@
  * トップページ - 地点選択画面
  */
 
-import Link from 'next/link'
-import { MapPin, Thermometer } from 'lucide-react'
-import { getLocationInfoSync } from '@/lib/data-fetcher'
+import { MapPin } from 'lucide-react'
 import { FavoritesList } from '@/components/FavoritesList'
+import { MainLocations } from '@/components/MainLocations'
 import { WebSiteStructuredData } from '@/components/StructuredData'
 import { NavigationHeader } from '@/components/NavigationHeader'
 import { SearchBar } from '@/components/SearchBar'
 import { RegionSelector } from '@/components/RegionSelector'
 
 export default function HomePage() {
-  // 主要地点のリスト
-  const majorLocations = [
-    { code: '44132', region: '関東' },
-    { code: '46106', region: '関東' },
-    { code: '47662', region: '関西' },
-    { code: '27412', region: '中部' },
-    { code: '40201', region: '九州' },
-    { code: '48141', region: '北海道' },
-    { code: '04101', region: '東北' },
-    { code: '50301', region: '九州・沖縄' },
-    { code: '21101', region: '中部' },
-    { code: '15101', region: '中部' },
-    { code: '17201', region: '中部' },
-    { code: '39101', region: '四国' }
-  ]
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
       <WebSiteStructuredData />
@@ -50,35 +33,7 @@ export default function HomePage() {
         </div>
 
         {/* 主要地点 */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-            <MapPin className="w-5 h-5" />
-            主要地点
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {majorLocations.map((location) => {
-              const info = getLocationInfoSync(location.code)
-              if (!info) return null
-              
-              return (
-                <Link
-                  key={location.code}
-                  href={`/wbgt/${location.code}`}
-                  className="block p-4 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all"
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-semibold text-gray-900">{info.name}</h3>
-                      <p className="text-sm text-gray-600">{info.prefecture}</p>
-                      <p className="text-xs text-blue-600 mt-1">{location.region}地方</p>
-                    </div>
-                    <Thermometer className="w-5 h-5 text-gray-400" />
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
+        <MainLocations />
 
         {/* 地方別セクション */}
         <div className="bg-white rounded-2xl shadow-lg p-6">

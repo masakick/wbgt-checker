@@ -1,11 +1,127 @@
 "use client"
 
+import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { Heart, MapPin, Trash2 } from 'lucide-react'
+import { Heart, Trash2, Clock } from 'lucide-react'
 import { useFavorites } from '@/hooks/useFavorites'
+import { cn } from '@/lib/utils'
+
+interface WBGTData {
+  code: string
+  wbgt: number | null
+  level: number
+  label: string
+  guidance: string
+  updateTime: string | null
+}
 
 export function FavoritesList() {
   const { favorites, removeFavorite, isLoading } = useFavorites()
+  const [wbgtData, setWbgtData] = useState<Record<string, WBGTData>>({})
+  const [dataLoading, setDataLoading] = useState(false)
+
+  // 地点コードの配列をメモ化して依存配列を安定させる
+  const locationCodes = useMemo(() => favorites.map(f => f.code), [favorites])
+  
+  // 地点コードの文字列化で安定した依存関係を作る
+  const locationCodesKey = useMemo(() => locationCodes.join(','), [locationCodes])
+
+  // 日本語形式の時刻フォーマット関数
+  const formatJapaneseTime = (dateString: string): string => {
+    const date = new Date(dateString)
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    return `${month}月${day}日 ${hour}時${minute.toString().padStart(2, '0')}分`
+  }
+
+  // 安定したモックデータを生成する関数
+  const generateStableMockData = useMemo(() => {
+    return (codes: string[]): Record<string, WBGTData> => {
+      const dataMap: Record<string, WBGTData> = {}
+      codes.forEach(code => {
+        // 地点コードに基づいて安定した値を生成（ハッシュ的な方法）
+        const seed = code.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+        const wbgt = (seed % 15) + 20 // 20-35の範囲で安定した値
+        const level = seed % 5 // 0-4の警戒レベル
+        const labels = ['安全', '注意', '警戒', '厳重警戒', '危険']
+        const guidances = [
+          '適宜水分補給',
+          '積極的に水分補給',
+          '積極的に休憩・水分補給',
+          '激しい運動は中止',
+          '運動は原則中止'
+        ]
+        
+        dataMap[code] = {
+          code,
+          wbgt,
+          level,
+          label: labels[level],
+          guidance: guidances[level],
+          updateTime: formatJapaneseTime('2025-06-22T10:30:00')
+        }
+      })
+      return dataMap
+    }
+  }, [])
+
+  // お気に入り地点のWBGTデータを取得（一度のみ、自動更新なし）
+  useEffect(() => {
+    if (locationCodes.length === 0) {
+      setWbgtData({})
+      return
+    }
+    
+    const fetchWBGTData = async () => {
+      setDataLoading(true)
+      
+      try {
+        // 開発環境では安定したモックデータを使用
+        if (process.env.NODE_ENV === 'development') {
+          const dataMap = generateStableMockData(locationCodes)
+          setWbgtData(dataMap)
+          setDataLoading(false)
+          return
+        }
+
+        // 本番環境では実APIを使用（自動更新なし）
+        const response = await fetch('/api/wbgt/multiple', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ locationCodes })
+        })
+        
+        if (response.ok) {
+          const data: WBGTData[] = await response.json()
+          const dataMap = data.reduce((acc, item) => {
+            // 時刻を日本語形式にフォーマット
+            const formattedItem = {
+              ...item,
+              updateTime: item.updateTime ? formatJapaneseTime(item.updateTime) : null
+            }
+            acc[item.code] = formattedItem
+            return acc
+          }, {} as Record<string, WBGTData>)
+          setWbgtData(dataMap)
+        } else {
+          console.warn('API returned error status:', response.status)
+        }
+      } catch (error) {
+        if (error instanceof TypeError && error.message.includes('fetch')) {
+          console.warn('Network error - WBGT data unavailable')
+        } else {
+          console.error('Failed to fetch WBGT data:', error)
+        }
+      } finally {
+        setDataLoading(false)
+      }
+    }
+
+    // 初回のみデータを取得し、自動更新は行わない
+    fetchWBGTData()
+  }, [locationCodesKey])
 
   if (isLoading) {
     return (
@@ -48,40 +164,96 @@ export function FavoritesList() {
       </h2>
       
       <div className="space-y-3">
-        {favorites.map((favorite) => (
-          <div
-            key={favorite.code}
-            className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all group"
-          >
-            <Link
-              href={`/wbgt/${favorite.code}`}
-              className="flex-1 flex items-center gap-3"
-            >
-              <MapPin className="w-4 h-4 text-blue-500" />
-              <div>
-                <h3 className="font-semibold text-gray-900 group-hover:text-blue-600">
-                  {favorite.name}
-                </h3>
-                <p className="text-sm text-gray-600">{favorite.prefecture}</p>
-                <p className="text-xs text-gray-400">
-                  追加日: {new Date(favorite.addedAt).toLocaleDateString('ja-JP')}
-                </p>
+        {favorites.map((favorite) => {
+          const data = wbgtData[favorite.code]
+          const hasData = data && data.wbgt !== null
+          
+          // 警戒レベルに応じた色クラスを取得
+          const getLevelColor = (level: number) => {
+            switch(level) {
+              case 0: return 'bg-blue-500'
+              case 1: return 'bg-green-500'
+              case 2: return 'bg-yellow-500'
+              case 3: return 'bg-orange-500'
+              case 4: return 'bg-red-500'
+              default: return 'bg-gray-400'
+            }
+          }
+          
+          return (
+            <div key={favorite.code} className="bg-gray-50 rounded-lg p-4 space-y-2">
+              <div className="flex justify-between items-start">
+                <Link
+                  href={`/wbgt/${favorite.code}`}
+                  className="flex-1 block"
+                >
+                  {/* 時刻を上部に表示 */}
+                  {hasData && data.updateTime && (
+                    <div className="flex items-center gap-1 text-xs text-gray-500 mb-2">
+                      <Clock className="w-3 h-3" />
+                      <span>{data.updateTime}</span>
+                    </div>
+                  )}
+                  
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <h3 className="font-semibold text-gray-900 hover:text-blue-600">
+                        {favorite.name}
+                      </h3>
+                      <p className="text-sm text-gray-600">{favorite.prefecture}</p>
+                    </div>
+                    {hasData && (
+                      <span
+                        className={cn(
+                          "inline-block px-3 py-1 rounded-full text-white font-bold text-sm",
+                          getLevelColor(data.level)
+                        )}
+                      >
+                        {data.wbgt}
+                      </span>
+                    )}
+                  </div>
+                  
+                  {hasData && (
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={cn(
+                          "inline-block px-2 py-1 rounded text-white text-xs font-medium",
+                          getLevelColor(data.level)
+                        )}
+                      >
+                        {data.label}
+                      </span>
+                      <span className="text-xs text-gray-600">
+                        {data.guidance}
+                      </span>
+                    </div>
+                  )}
+                  
+                  {!hasData && dataLoading && (
+                    <div className="text-sm text-gray-500">読み込み中...</div>
+                  )}
+                  
+                  {!hasData && !dataLoading && (
+                    <div className="text-sm text-gray-500">データなし</div>
+                  )}
+                </Link>
+                
+                <button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    removeFavorite(favorite.code)
+                  }}
+                  className="ml-3 p-2 text-gray-400 hover:text-red-500 transition-colors"
+                  title="お気に入りから削除"
+                  aria-label="お気に入りから削除"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
-            </Link>
-            
-            <button
-              onClick={(e) => {
-                e.preventDefault()
-                removeFavorite(favorite.code)
-              }}
-              className="p-2 text-gray-400 hover:text-red-500 transition-colors"
-              title="お気に入りから削除"
-              aria-label="お気に入りから削除"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-          </div>
-        ))}
+            </div>
+          )
+        })}
       </div>
       
       {favorites.length > 0 && (

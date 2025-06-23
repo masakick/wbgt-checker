@@ -30,7 +30,7 @@ export function WebSiteStructuredData() {
     name: '暑さ指数チェッカー',
     alternateName: 'WBGT熱中症予防情報',
     url: process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com',
-    description: '日本全国840地点の暑さ指数（WBGT）をリアルタイムでチェック。熱中症予防に役立つ情報を提供します。',
+    description: '日本全国841地点の暑さ指数（WBGT）をリアルタイムでチェック。熱中症予防に役立つ情報を提供します。',
     publisher: {
       '@type': 'Organization',
       name: '慶應義塾大学大学院 政策・メディア研究科',

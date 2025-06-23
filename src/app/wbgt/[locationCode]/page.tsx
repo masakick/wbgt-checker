@@ -1,6 +1,6 @@
 /**
  * 動的な地点別WBGTページ
- * /wbgt/[locationCode] - 840地点に対応
+ * /wbgt/[locationCode] - 841地点に対応
  */
 
 import { Metadata } from 'next'
@@ -17,6 +17,8 @@ import { Info } from 'lucide-react'
 import { getWBGTData, getLocationInfoSync } from '@/lib/data-fetcher'
 import { getAllLocationCodesArray } from '@/lib/complete-locations'
 import { formatJapaneseTime } from '@/lib/format-time'
+import { getRedirectPath } from '@/lib/location-redirects'
+import { redirect } from 'next/navigation'
 
 interface PageProps {
   params: Promise<{
@@ -134,6 +136,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function WBGTLocationPage({ params }: PageProps) {
   const { locationCode } = await params
+  
+  // リダイレクトチェック
+  const redirectPath = getRedirectPath(locationCode)
+  if (redirectPath) {
+    redirect(redirectPath)
+  }
   
   // データ取得
   const wbgtData = await getWBGTData(locationCode)

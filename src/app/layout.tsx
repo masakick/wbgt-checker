@@ -13,8 +13,8 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "暑さ指数チェッカー - 全国840地点WBGT情報",
-  description: "日本全国840地点の暑さ指数（WBGT）をリアルタイムでチェック。21時点詳細予報と運動指針で熱中症を予防しましょう。環境省・気象庁データを使用。",
+  title: "暑さ指数チェッカー - 全国841地点WBGT情報",
+  description: "日本全国841地点の暑さ指数（WBGT）をリアルタイムでチェック。21時点詳細予報と運動指針で熱中症を予防しましょう。環境省・気象庁データを使用。",
   keywords: "暑さ指数,WBGT,熱中症予防,気温,湿度,環境省,気象庁,リアルタイム",
   authors: [{ name: "山辺真幸", url: "https://twitter.com/masakick" }],
   creator: "慶應義塾大学大学院 政策・メディア研究科 山辺真幸",

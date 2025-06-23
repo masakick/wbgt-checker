@@ -35,7 +35,7 @@ export function getLocationInfoSync(locationCode: string): LocationInfo | null {
  * 地点コードから地点情報を取得（非同期版 - サーバーサイド用）
  */
 export async function getLocationInfo(locationCode: string): Promise<LocationInfo | null> {
-  // 840地点の完全なデータベースから検索
+  // 841地点の完全なデータベースから検索
   const allLocations = await getAllCompleteLocations()
   const location = allLocations.find(loc => loc.code === locationCode)
   return location ? { name: location.name, prefecture: location.prefecture } : null

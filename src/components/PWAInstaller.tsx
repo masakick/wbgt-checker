@@ -18,37 +18,57 @@ export function PWAInstaller() {
   const [isInstalled, setIsInstalled] = useState(false)
 
   useEffect(() => {
-    // サービスワーカーの登録
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-        .register('/sw.js')
-        .then((registration) => {
-          console.log('[PWA] Service Worker registered:', registration)
-        })
-        .catch((error) => {
-          console.error('[PWA] Service Worker registration failed:', error)
-        })
-    }
-
     // PWAインストールプロンプトのリスナー
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault()
       setDeferredPrompt(e as BeforeInstallPromptEvent)
       setShowInstallBanner(true)
+      console.log('[PWA] beforeinstallprompt event captured')
     }
 
     // アプリがインストール済みかチェック
     const checkIfInstalled = () => {
+      // スタンドアロンモードをチェック
       if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
         setIsInstalled(true)
+        console.log('[PWA] App is already installed (standalone mode)')
+        return
+      }
+      
+      // iOS Safari での PWA チェック
+      if (navigator.standalone === true) {
+        setIsInstalled(true)
+        console.log('[PWA] App is already installed (iOS standalone)')
+        return
       }
     }
 
+    // アプリがインストールされた後のイベント
+    const handleAppInstalled = () => {
+      console.log('[PWA] App was installed')
+      setIsInstalled(true)
+      setShowInstallBanner(false)
+      setDeferredPrompt(null)
+    }
+
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+    window.addEventListener('appinstalled', handleAppInstalled)
     checkIfInstalled()
+
+    // PWA installability をチェック（デバッグ用）
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration().then((registration) => {
+        if (registration) {
+          console.log('[PWA] Service Worker is registered:', registration.scope)
+        } else {
+          console.log('[PWA] Service Worker is not registered yet')
+        }
+      })
+    }
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+      window.removeEventListener('appinstalled', handleAppInstalled)
     }
   }, [])
 

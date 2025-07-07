@@ -40,9 +40,8 @@ export async function GET(request: NextRequest) {
       }, { status: 400 })
     }
     
-    // public/data/ ディレクトリにJSONファイルとして保存
-    const dataDir = join(process.cwd(), 'public', 'data')
-    const filePath = join(dataDir, 'wbgt.json')
+    // Vercel環境では /tmp ディレクトリに保存
+    const filePath = join('/tmp', 'wbgt.json')
     
     const jsonData = {
       timestamp: new Date().toISOString(),

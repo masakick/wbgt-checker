@@ -46,8 +46,15 @@ export async function getLocationInfo(locationCode: string): Promise<LocationInf
  */
 export async function getWBGTData(locationCode: string): Promise<WBGTData | null> {
   try {
-    const filePath = join(process.cwd(), 'public', 'data', 'wbgt.json')
-    const fileContent = await readFile(filePath, 'utf-8')
+    // まず /tmp から読み込み、なければ public/data から読み込み
+    let fileContent: string
+    try {
+      const tmpPath = join('/tmp', 'wbgt.json')
+      fileContent = await readFile(tmpPath, 'utf-8')
+    } catch {
+      const publicPath = join(process.cwd(), 'public', 'data', 'wbgt.json')
+      fileContent = await readFile(publicPath, 'utf-8')
+    }
     const jsonData = JSON.parse(fileContent)
     
     if (!jsonData.data || !Array.isArray(jsonData.data)) {

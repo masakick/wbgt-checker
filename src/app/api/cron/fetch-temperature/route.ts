@@ -41,9 +41,8 @@ export async function GET(request: NextRequest) {
     // データを変換・整形
     const processedData = processTemperatureData(result.data)
     
-    // public/data/ ディレクトリにJSONファイルとして保存
-    const dataDir = join(process.cwd(), 'public', 'data')
-    const filePath = join(dataDir, 'temperature.json')
+    // Vercel環境では /tmp ディレクトリに保存
+    const filePath = join('/tmp', 'temperature.json')
     
     const jsonData = {
       timestamp: new Date().toISOString(),

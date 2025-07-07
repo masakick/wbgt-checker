@@ -48,7 +48,7 @@ export function ActivityGuideSelector({
   const handleActivityChange = (value: string) => {
     setSelectedActivity(value)
     if (value) {
-      window.open(value, '_blank')
+      window.location.href = value
     }
   }
 

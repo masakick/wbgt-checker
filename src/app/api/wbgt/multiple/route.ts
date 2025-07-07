@@ -56,12 +56,9 @@ export async function POST(request: NextRequest) {
       const firstLocation = parsedData[0]
       const actualUpdateTime = firstLocation ? firstLocation.timestamp : new Date().toISOString()
       
-      // formatJapaneseTimeをインポートして使用
-      const { formatJapaneseTime } = await import('@/lib/format-time')
-      
       wbgtFileData = {
         timestamp: actualUpdateTime,
-        updateTime: formatJapaneseTime(actualUpdateTime),
+        updateTime: actualUpdateTime, // ISO文字列をそのまま渡す
         dataCount: parsedData.length,
         data: parsedData
       }

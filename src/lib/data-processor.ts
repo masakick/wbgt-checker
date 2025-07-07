@@ -32,6 +32,65 @@ export interface TemperatureData {
 }
 
 /**
+ * 予報CSVデータをパース
+ * CSVの形式: 空行,空行,2025070718,2025070721,... (ヘッダーが予報時刻)
+ *            11001,2025/07/07 15:25,210,180,... (地点コードごとの予報値)
+ */
+export function parseForecastCSV(csvText: string): Record<string, WBGTForecast[]> {
+  const lines = csvText.split('\n').filter(line => line.trim())
+  
+  if (lines.length < 2) {
+    throw new Error('Invalid forecast CSV format: insufficient data')
+  }
+  
+  // ヘッダー行から予報時刻を抽出
+  const headerColumns = lines[0].split(',')
+  const forecastTimes = headerColumns.slice(2) // 最初の2列は空
+  
+  const result: Record<string, WBGTForecast[]> = {}
+  
+  // 各地点の予報データを処理
+  for (let i = 1; i < lines.length; i++) {
+    const columns = lines[i].split(',')
+    const locationCode = columns[0].trim()
+    const updateTime = columns[1].trim()
+    
+    if (!locationCode) continue
+    
+    const forecasts: WBGTForecast[] = []
+    
+    // 各予報時刻のデータを処理
+    forecastTimes.forEach((timeStr, index) => {
+      const wbgtValue = parseInt(columns[index + 2])
+      
+      if (!isNaN(wbgtValue) && timeStr.trim()) {
+        // 時刻文字列をパース（例: "2025070718" → 2025年07月07日18時）
+        const year = timeStr.substring(0, 4)
+        const month = timeStr.substring(4, 6)
+        const day = timeStr.substring(6, 8)
+        const hour = timeStr.substring(8, 10)
+        
+        const wbgt = wbgtValue / 10 // 値は10倍されているので戻す
+        const level = getWBGTLevel(wbgt)
+        
+        forecasts.push({
+          date: `${parseInt(month)}月${parseInt(day)}日`,
+          time: `${parseInt(hour)}時`,
+          wbgt: wbgt,
+          level: level.level,
+          label: level.label,
+          guidance: level.guidance
+        })
+      }
+    })
+    
+    result[locationCode] = forecasts
+  }
+  
+  return result
+}
+
+/**
  * 環境省CSVデータをパース
  * CSVの形式: Date,Time,11001,11016,11046,... (横軸が地点コード、縦軸が時刻)
  */

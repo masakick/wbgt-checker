@@ -80,6 +80,28 @@ export async function getWBGTData(locationCode: string): Promise<WBGTData | null
         // 気温データが取得できない場合は推定値のまま
       }
       
+      // 予報データも取得して統合
+      try {
+        const { fetchForecastData } = await import('./data-urls')
+        const { parseForecastCSV } = await import('./data-processor')
+        
+        const forecastCsvData = await fetchForecastData()
+        const forecastData = parseForecastCSV(forecastCsvData)
+        
+        // 予報データを統合
+        parsedData.forEach(wbgtItem => {
+          const forecasts = forecastData[wbgtItem.locationCode]
+          if (forecasts && forecasts.length > 0) {
+            wbgtItem.forecast = forecasts
+          }
+        })
+        
+        console.log('[DATA-FETCHER] Forecast data integrated')
+      } catch (forecastError) {
+        console.warn('Failed to integrate forecast data:', forecastError)
+        // 予報データが取得できない場合は履歴データから生成されたものを使用
+      }
+      
       jsonData = {
         timestamp: new Date().toISOString(),
         updateTime: new Date().toLocaleString('ja-JP'),

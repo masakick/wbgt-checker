@@ -3,8 +3,6 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server'
-import { readFile } from 'fs/promises'
-import { join } from 'path'
 import { getWBGTLevel } from '@/lib/data-processor'
 
 export const dynamic = 'force-dynamic'
@@ -43,15 +41,25 @@ export async function POST(request: NextRequest) {
     // 最大10地点まで
     const codes = locationCodes.slice(0, 10)
     
-    // WBGTデータを読み込み
-    const wbgtFilePath = join(process.cwd(), 'public', 'data', 'wbgt.json')
+    // 現行サイトからWBGTデータを取得
     let wbgtFileData: any = null
     
     try {
-      const wbgtContent = await readFile(wbgtFilePath, 'utf-8')
-      wbgtFileData = JSON.parse(wbgtContent)
+      const { fetchWBGTData } = await import('@/lib/data-urls')
+      const { parseWBGTCSV } = await import('@/lib/data-processor')
+      
+      // 現行サイトからCSVデータを取得してパース
+      const csvData = await fetchWBGTData()
+      const parsedData = parseWBGTCSV(csvData)
+      
+      wbgtFileData = {
+        timestamp: new Date().toISOString(),
+        updateTime: new Date().toLocaleString('ja-JP'),
+        dataCount: parsedData.length,
+        data: parsedData
+      }
     } catch (error) {
-      console.error('Failed to read WBGT data:', error)
+      console.error('Failed to fetch WBGT data from current site:', error)
     }
 
     // 各地点のデータを取得

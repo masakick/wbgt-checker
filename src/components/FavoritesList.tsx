@@ -70,15 +70,7 @@ export function FavoritesList() {
       setDataLoading(true)
       
       try {
-        // 開発環境では安定したモックデータを使用
-        if (process.env.NODE_ENV === 'development') {
-          const dataMap = generateStableMockData(locationCodes)
-          setWbgtData(dataMap)
-          setDataLoading(false)
-          return
-        }
-
-        // 本番環境では実APIを使用（自動更新なし）
+        // 実APIを使用（自動更新なし）
         const response = await fetch('/api/wbgt/multiple', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

@@ -70,7 +70,7 @@ export default function HomePage() {
               </li>
               <li className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                <span>安全（21°C未満）: 適宜水分補給</span>
+                <span>ほぼ安全（21°C未満）: 適宜水分補給</span>
               </li>
             </ul>
           </div>

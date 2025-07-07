@@ -198,7 +198,7 @@ export function getWBGTLevel(wbgt: number): { level: number; label: string; guid
   } else if (wbgt >= 21) {
     return { level: 1, label: '注意', guidance: '積極的に水分補給' }
   } else {
-    return { level: 0, label: '安全', guidance: '適宜水分補給' }
+    return { level: 0, label: 'ほぼ安全', guidance: '適宜水分補給' }
   }
 }
 

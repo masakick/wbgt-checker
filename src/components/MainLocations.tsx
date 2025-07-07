@@ -43,7 +43,7 @@ export function MainLocations() {
         const seed = code.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
         const wbgt = (seed % 15) + 20 // 20-35の範囲で安定した値
         const level = seed % 5 // 0-4の警戒レベル
-        const labels = ['安全', '注意', '警戒', '厳重警戒', '危険']
+        const labels = ['ほぼ安全', '注意', '警戒', '厳重警戒', '危険']
         const guidances = [
           '適宜水分補給',
           '積極的に水分補給',

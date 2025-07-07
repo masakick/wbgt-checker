@@ -97,23 +97,18 @@ export function parseWBGTCSV(csvText: string): WBGTData[] {
 }
 
 /**
- * CSV日時をISO文字列に変換
+ * CSV日時をISO文字列に変換（日本時間）
  */
 function parseCSVDateTime(date: string, time: string): string {
   try {
-    // 日付形式: "2025/6/1", 時刻形式: "1:00"
+    // 日付形式: "2025/7/7", 時刻形式: "15:00"
     const [year, month, day] = date.split('/')
     const [hour, minute = '0'] = time.split(':')
     
-    const dateObj = new Date(
-      parseInt(year),
-      parseInt(month) - 1, // 月は0ベース
-      parseInt(day),
-      parseInt(hour),
-      parseInt(minute)
-    )
+    // 日本時間として扱う（UTC+9）
+    const dateStr = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${hour.padStart(2, '0')}:${minute.padStart(2, '0')}:00+09:00`
     
-    return dateObj.toISOString()
+    return new Date(dateStr).toISOString()
   } catch (error) {
     console.error('Error parsing CSV datetime:', error)
     return new Date().toISOString()

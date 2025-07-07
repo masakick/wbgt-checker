@@ -58,6 +58,28 @@ export async function getWBGTData(locationCode: string): Promise<WBGTData | null
       // CSVをパース
       const parsedData = parseWBGTCSV(csvData)
       
+      // 気温データも取得して統合
+      try {
+        const { fetchTemperatureData } = await import('./data-urls')
+        const tempData = await fetchTemperatureData()
+        
+        // 気温データを統合
+        parsedData.forEach(wbgtItem => {
+          const tempInfo = tempData[wbgtItem.locationCode]
+          if (tempInfo && tempInfo.temp && tempInfo.temp.length > 0) {
+            wbgtItem.temperature = tempInfo.temp[0] // 最新の気温
+            if (tempInfo.humidity && tempInfo.humidity.length > 0) {
+              wbgtItem.humidity = tempInfo.humidity[0] // 最新の湿度
+            }
+          }
+        })
+        
+        console.log('[DATA-FETCHER] Temperature data integrated')
+      } catch (tempError) {
+        console.warn('Failed to integrate temperature data:', tempError)
+        // 気温データが取得できない場合は推定値のまま
+      }
+      
       jsonData = {
         timestamp: new Date().toISOString(),
         updateTime: new Date().toLocaleString('ja-JP'),

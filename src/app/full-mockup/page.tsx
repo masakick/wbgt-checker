@@ -3,7 +3,7 @@
 import { WBGTVisualization } from "@/components/WBGTVisualization"
 import { DetailedForecastTable } from "@/components/DetailedForecastTable"
 import { ActivityGuideSelector } from "@/components/ActivityGuideSelector"
-import { ShareAndSaveButtons } from "@/components/ShareAndSaveButtons"
+import { ShareButtons } from "@/components/ShareButtons"
 import { QRCodeSection } from "@/components/QRCodeSection"
 import { ArrowLeft, RefreshCw, Info } from "lucide-react"
 
@@ -73,8 +73,8 @@ export default function FullMockupPage() {
           updateTime="2025年6月20日 14:40"
         />
 
-        {/* 共有・保存ボタンエリア */}
-        <ShareAndSaveButtons
+        {/* 共有ボタンエリア */}
+        <ShareButtons
           location="東京"
           wbgt={28.5}
           pageUrl="https://atsusa.jp/wbgt/44132.html"

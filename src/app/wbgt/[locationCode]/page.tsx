@@ -8,7 +8,7 @@ import { notFound } from 'next/navigation'
 import { WBGTVisualization } from '@/components/WBGTVisualization'
 import { DetailedForecastTable } from '@/components/DetailedForecastTable'
 import { ActivityGuideSelector } from '@/components/ActivityGuideSelector'
-import { ShareAndSaveButtons } from '@/components/ShareAndSaveButtons'
+import { ShareButtons } from '@/components/ShareButtons'
 import { QRCodeSection } from '@/components/QRCodeSection'
 import { NavigationHeader } from '@/components/NavigationHeader'
 import { FavoriteButton } from '@/components/FavoriteButton'
@@ -196,8 +196,8 @@ export default async function WBGTLocationPage({ params }: PageProps) {
           updateTime={wbgtData.timestamp}
         />
 
-        {/* 共有・保存ボタンエリア */}
-        <ShareAndSaveButtons
+        {/* 共有ボタンエリア */}
+        <ShareButtons
           location={wbgtData.locationName}
           wbgt={wbgtData.wbgt}
           pageUrl={pageUrl}

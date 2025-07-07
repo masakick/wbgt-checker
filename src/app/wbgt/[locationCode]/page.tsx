@@ -18,6 +18,7 @@ import { getWBGTData, getLocationInfoSync } from '@/lib/data-fetcher'
 import { getAllLocationCodesArray } from '@/lib/complete-locations'
 import { formatJapaneseTime } from '@/lib/format-time'
 import { getRedirectPath } from '@/lib/location-redirects'
+import { getRegionByPrefectureCode } from '@/lib/region-data'
 import { redirect } from 'next/navigation'
 
 interface PageProps {
@@ -206,7 +207,7 @@ export default async function WBGTLocationPage({ params }: PageProps) {
 
         {/* 運動時対処・活動場所セレクター */}
         <ActivityGuideSelector
-          regionCode={locationCode.slice(0, 2)}
+          regionCode={getRegionByPrefectureCode(locationCode.slice(0, 2))}
           prefectureCode={locationCode.slice(0, 2)}
           pointCode={locationCode}
           currentWBGTLevel={levelInfo.level}

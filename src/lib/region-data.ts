@@ -146,3 +146,15 @@ export function getPrefectureName(prefectureId: string, regionId?: string): stri
 export function getPrefecturesByRegion(regionId: string): PrefectureData[] {
   return prefecturesByRegion[regionId] || []
 }
+
+/**
+ * 都道府県コードから地域コードを取得
+ */
+export function getRegionByPrefectureCode(prefectureCode: string): string {
+  for (const [regionId, prefectures] of Object.entries(prefecturesByRegion)) {
+    if (prefectures.some(p => p.id === prefectureCode)) {
+      return regionId
+    }
+  }
+  return "03" // デフォルト（関東地方）
+}

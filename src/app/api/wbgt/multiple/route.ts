@@ -52,9 +52,16 @@ export async function POST(request: NextRequest) {
       const csvData = await fetchWBGTData()
       const parsedData = parseWBGTCSV(csvData)
       
+      // parsedDataの最初の要素からtimestampを取得（全地点で同じ時刻）
+      const firstLocation = parsedData[0]
+      const actualUpdateTime = firstLocation ? firstLocation.timestamp : new Date().toISOString()
+      
+      // formatJapaneseTimeをインポートして使用
+      const { formatJapaneseTime } = await import('@/lib/format-time')
+      
       wbgtFileData = {
-        timestamp: new Date().toISOString(),
-        updateTime: new Date().toLocaleString('ja-JP'),
+        timestamp: actualUpdateTime,
+        updateTime: formatJapaneseTime(actualUpdateTime),
         dataCount: parsedData.length,
         data: parsedData
       }

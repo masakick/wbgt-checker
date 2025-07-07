@@ -13,6 +13,7 @@ import { QRCodeSection } from '@/components/QRCodeSection'
 import { NavigationHeader } from '@/components/NavigationHeader'
 import { FavoriteButton } from '@/components/FavoriteButton'
 import { WeatherReportStructuredData } from '@/components/StructuredData'
+import { ScrollGuide } from '@/components/ScrollGuide'
 import { Info } from 'lucide-react'
 import { getWBGTData, getLocationInfoSync } from '@/lib/data-fetcher'
 import { getAllLocationCodesArray } from '@/lib/complete-locations'
@@ -248,6 +249,9 @@ export default async function WBGTLocationPage({ params }: PageProps) {
           prefecture={wbgtData.prefecture}
         />
       </main>
+
+      {/* スクロールガイド */}
+      <ScrollGuide hideThreshold={200} />
 
       {/* フッター */}
       <footer className="bg-gray-800 text-white py-8 mt-12">

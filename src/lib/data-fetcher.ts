@@ -46,16 +46,31 @@ export async function getLocationInfo(locationCode: string): Promise<LocationInf
  */
 export async function getWBGTData(locationCode: string): Promise<WBGTData | null> {
   try {
-    // まず /tmp から読み込み、なければ public/data から読み込み
-    let fileContent: string
+    // まずAPIエンドポイントからリアルタイムデータを取得
+    let jsonData: any
     try {
-      const tmpPath = join('/tmp', 'wbgt.json')
-      fileContent = await readFile(tmpPath, 'utf-8')
-    } catch {
-      const publicPath = join(process.cwd(), 'public', 'data', 'wbgt.json')
-      fileContent = await readFile(publicPath, 'utf-8')
+      const apiUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/data/wbgt`
+      const response = await fetch(apiUrl, { cache: 'no-store' })
+      
+      if (response.ok) {
+        jsonData = await response.json()
+      } else {
+        throw new Error(`API response not ok: ${response.status}`)
+      }
+    } catch (apiError) {
+      console.warn('Failed to fetch from API, trying file system:', apiError)
+      
+      // APIが失敗した場合、ファイルシステムから読み込み
+      try {
+        const tmpPath = join('/tmp', 'wbgt.json')
+        const fileContent = await readFile(tmpPath, 'utf-8')
+        jsonData = JSON.parse(fileContent)
+      } catch {
+        const publicPath = join(process.cwd(), 'public', 'data', 'wbgt.json')
+        const fileContent = await readFile(publicPath, 'utf-8')
+        jsonData = JSON.parse(fileContent)
+      }
     }
-    const jsonData = JSON.parse(fileContent)
     
     if (!jsonData.data || !Array.isArray(jsonData.data)) {
       console.error('Invalid WBGT data format')

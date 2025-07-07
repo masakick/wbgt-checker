@@ -117,22 +117,25 @@ export default function FullMockupPage() {
         </div>
 
         {/* QRコード */}
-        <QRCodeSection pageUrl="https://atsusa.jp/wbgt/44132.html" />
+        <QRCodeSection 
+          pageUrl="https://atsusa.jp/wbgt/44132.html"
+          locationName="東京"
+          prefecture="東京都"
+        />
       </main>
 
       {/* フッター */}
       <footer className="bg-gray-800 text-white py-8 mt-12">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-sm">
-            <a href="#" className="hover:text-blue-400">利用規約</a>
+            <a href="/about" className="hover:text-blue-400">利用規約</a>
             <span className="mx-2">｜</span>
             データ提供：
             <a href="https://www.wbgt.env.go.jp/sp/" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">環境省</a>
             ,
             <a href="https://www.jma.go.jp/jma/index.html" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">気象庁</a>
             <br />
-            開発：慶應義塾大学大学院 政策・メディア研究科 
-            <a href="https://twitter.com/masakick" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">山辺真幸</a>
+            開発：一橋大学大学院ソーシャル・データサイエンス研究科　山辺真幸
           </p>
         </div>
       </footer>

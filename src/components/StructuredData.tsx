@@ -33,7 +33,7 @@ export function WebSiteStructuredData() {
     description: '日本全国841地点の暑さ指数（WBGT）をリアルタイムでチェック。熱中症予防に役立つ情報を提供します。',
     publisher: {
       '@type': 'Organization',
-      name: '慶應義塾大学大学院 政策・メディア研究科',
+      name: '一橋大学大学院 ソーシャル・データサイエンス研究科',
       logo: {
         '@type': 'ImageObject',
         url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com'}/icons/icon-512x512.png`,

@@ -90,10 +90,7 @@ export default function HomePage() {
               気象庁
             </a>
             <br />
-            開発：慶應義塾大学大学院 政策・メディア研究科 
-            <a href="https://twitter.com/masakick" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">
-              山辺真幸
-            </a>
+            開発：一橋大学大学院ソーシャル・データサイエンス研究科　山辺真幸
           </p>
         </div>
       </footer>

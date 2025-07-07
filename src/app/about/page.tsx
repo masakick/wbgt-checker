@@ -56,16 +56,26 @@ export default function AboutPage() {
 
             <h2 className="text-xl font-bold text-gray-900 mb-4">運営者について</h2>
             <p className="text-gray-700 mb-6">
-              山辺真幸 (
+              山辺真幸（一橋大学大学院 ソーシャル・データサイエンス研究科特任講師）<br />
+              個人サイト：
               <a 
-                href="https://bit.ly/2Q8aaCB" 
+                href="https://masakiyamabe.com" 
+                className="text-blue-600 underline hover:text-blue-800"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                https://masakiyamabe.com
+              </a>
+              <br />
+              X(旧ツイッター）：
+              <a 
+                href="https://x.com/masakick" 
                 className="text-blue-600 underline hover:text-blue-800"
                 target="_blank" 
                 rel="noopener noreferrer"
               >
                 @masakick
               </a>
-              )
             </p>
 
             <hr className="my-8" />

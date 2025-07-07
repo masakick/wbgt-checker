@@ -9,7 +9,9 @@ import { ToastContainer } from "@/components/Toast";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "900"],
+  weight: ["400", "500", "600", "700"],
+  display: 'swap',
+  preload: true,
 });
 
 export const metadata: Metadata = {

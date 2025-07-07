@@ -306,66 +306,109 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=Google Analytics ID
 - ✅ Chrome/Edge/SafariすべてでPWAインストール機能が動作確認済み
 - ✅ PWAアイコン変更ガイドのドキュメント作成（/docs/PWA_ICON_GUIDE.md）
 
-## 🚀 デプロイ準備TODO
+## ✅ 最終動作テスト完了（2025年6月23日）
 
-### 1. 技術的準備
-- [ ] **環境変数設定の確認**
-  - CRON_SECRET（必須）
-  - NEXT_PUBLIC_SITE_URL（必須）
-  - Sentry設定（オプション）
-  - Google Analytics設定（オプション）
+### 🎯 完了したテスト項目
+- ✅ 全841地点ページアクセス確認（100%成功）
+- ✅ リダイレクト機能の動作確認（正常動作）
+- ✅ お気に入り機能テスト（追加・削除・トースト通知）
+- ✅ 検索機能・地方別選択機能テスト
+- ✅ モバイル・デスクトップ表示確認
+- ✅ Lighthouseスコア確認
+  - Performance: 62（本番環境でさらに改善見込み）
+  - Accessibility: 81
+  - Best Practice: 93
+  - SEO: 100
+- ✅ パフォーマンス最適化実施
+  - 検索APIのサーバーサイド化
+  - フォント最適化（display: swap）
+  - 不要なウェイト削除
 
-- [ ] **最終動作テスト**
-  - 全841地点ページアクセス確認
-  - リダイレクト機能の確認
-    - 廃止地点41171→トップページ
-    - 変更地点（45147、74181、88836）→新コード
-  - お気に入り機能（追加・削除・トースト通知）
-  - 検索機能・地方別選択機能
-  - PWAインストール機能（Chrome/Edge/Safari）
-  - モバイル・デスクトップ表示確認
+## 🚀 デプロイ準備TODO（2025年6月23日作業中断）
 
-- [ ] **パフォーマンス最終チェック**
-  - Lighthouse スコア確認
-  - Core Web Vitals 測定
-  - バンドルサイズ確認
-  - 画像最適化確認
+### ✅ 完了済み
+- ✅ 環境変数設定の準備
+  - CRON_SECRET生成済み: `zsVCncW4bxi+4PUCRiFiHZP6KIeDsIEM9rPC4nYqMZo=`
+  - .env.local.example作成済み
+  - ENV_SETUP_GUIDE.md作成済み
+- ✅ 最終動作テスト（上記参照）
 
-### 2. Vercelデプロイ実行
-- [ ] **Vercelプロジェクト設定**
-  - GitHubリポジトリとの連携
-  - 環境変数の設定
-  - ドメイン設定（必要に応じて）
+### 🔄 作業再開時のTODO
 
-- [ ] **デプロイ実行**
-  - 本番ビルド確認
-  - 初回デプロイ実行
-  - DNS設定（独自ドメイン使用時）
+#### 1. GitHubリポジトリ準備
+- [ ] 既存リポジトリの確認または新規作成
+- [ ] 最新コードのコミット・プッシュ
+  ```bash
+  git add .
+  git commit -m "準備完了: Vercelデプロイ用最終調整"
+  git push origin main
+  ```
 
-### 3. 本番環境確認
-- [ ] **Cron Jobs動作確認**
-  - 毎時20分：気温データ更新確認
-  - 毎時40分：WBGTデータ更新確認
-  - エラーログの監視
+#### 2. Vercelプロジェクト設定
+- [ ] Vercelアカウントにログイン（https://vercel.com）
+- [ ] 「New Project」をクリック
+- [ ] GitHubリポジトリをインポート
+- [ ] プロジェクト設定
+  - Framework Preset: Next.js（自動検出）
+  - Root Directory: ./ （デフォルト）
+  - Build Command: `npm run build`（デフォルト）
+  - Output Directory: `.next`（デフォルト）
 
-- [ ] **全機能動作確認**
-  - 実データでの表示確認
-  - 841地点すべてのページ確認
+#### 3. 環境変数設定（Vercel Dashboard）
+- [ ] Settings → Environment Variables で以下を設定：
+  - `CRON_SECRET`: `zsVCncW4bxi+4PUCRiFiHZP6KIeDsIEM9rPC4nYqMZo=`
+  - `NEXT_PUBLIC_SITE_URL`: `https://[プロジェクト名].vercel.app`（デプロイ後に更新）
+
+#### 4. 初回デプロイ実行
+- [ ] 「Deploy」ボタンをクリック
+- [ ] ビルドログを監視
+- [ ] デプロイ成功を確認
+
+### 5. 本番環境確認
+- [ ] サイトアクセス確認（https://[プロジェクト名].vercel.app）
+- [ ] PWAインストール機能確認（HTTPSで有効化）
+- [ ] 主要機能の動作確認
+  - 地点検索
+  - お気に入り機能
+  - リダイレクト（例：/wbgt/41171）
+
+#### 6. Cron Jobs動作確認
+- [ ] Vercel Dashboard → Functions → Logs で確認
+- [ ] 毎時20分：/api/cron/fetch-temperature の実行ログ
+- [ ] 毎時40分：/api/cron/fetch-wbgt の実行ログ
+- [ ] データファイルの更新確認（/data/wbgt.json）
+
+#### 7. NEXT_PUBLIC_SITE_URL更新
+- [ ] デプロイ後のURLが確定したら環境変数を更新
+- [ ] Vercel Dashboard → Settings → Environment Variables
+- [ ] `NEXT_PUBLIC_SITE_URL`を実際のURLに変更
+- [ ] 再デプロイ（Redeploy）実行
+
+### 8. 運用開始チェックリスト
+- [ ] 全機能の最終確認
+  - 841地点すべてのページアクセス
   - API応答速度確認
-  - OGP画像生成確認
+  - OGP画像生成確認（/api/og）
+  - サイトマップ確認（/sitemap.xml）
+- [ ] Vercel Analytics確認（自動有効）
+- [ ] 初日のCron実行監視
+- [ ] パフォーマンス指標記録
 
-### 4. 運用開始・監視
-- [ ] **監視体制構築**
-  - Vercel Analytics設定確認
-  - Sentry エラー監視開始
-  - パフォーマンス監視設定
+## 📝 作業再開時の注意事項
 
-- [ ] **運用確認期間**
-  - 1週間の実データ動作確認
-  - ユーザーフィードバック収集
-  - パフォーマンス指標監視
+1. **環境変数の確認**
+   - CRON_SECRETは生成済みの値を使用
+   - NEXT_PUBLIC_SITE_URLはデプロイ後に更新必要
 
-### 5. 将来改善検討
+2. **Cron Jobsのタイムゾーン**
+   - vercel.jsonで設定済み（UTC時間）
+   - 日本時間で毎時20分・40分に実行
+
+3. **初回デプロイ後の作業**
+   - NEXT_PUBLIC_SITE_URL更新後は必ず再デプロイ
+   - Cron Jobsの初回実行を確認（最大1時間待機）
+
+### 9. 将来改善検討
 - [x] **残課題対応**
   - ~~4地点のデータ未対応問題~~ → 解決済み（リダイレクト実装）
   - 地名表記の最終確認

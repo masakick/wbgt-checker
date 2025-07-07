@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Search, MapPin } from 'lucide-react'
 import Link from 'next/link'
-import { getAllCompleteLocations } from '@/lib/complete-locations'
 
 interface SearchResult {
   code: string
@@ -20,8 +19,10 @@ export function SearchBar({ isInModal = false }: SearchBarProps) {
   const [results, setResults] = useState<SearchResult[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [isLoading, setIsLoading] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const resultsRef = useRef<HTMLDivElement>(null)
+  const abortControllerRef = useRef<AbortController | null>(null)
 
   // 検索実行
   useEffect(() => {
@@ -31,21 +32,36 @@ export function SearchBar({ isInModal = false }: SearchBarProps) {
       return
     }
 
-    const allLocations = getAllCompleteLocations()
-    const filtered = allLocations
-      .filter(location => 
-        location.name.includes(query) || 
-        location.prefecture.includes(query)
-      )
-      .slice(0, 8) // 最大8件表示
-      .map(location => ({
-        code: location.code,
-        name: location.name,
-        prefecture: location.prefecture
-      }))
+    // 既存のリクエストをキャンセル
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
 
-    setResults(filtered)
-    setIsOpen(filtered.length > 0)
+    const searchLocations = async () => {
+      setIsLoading(true)
+      abortControllerRef.current = new AbortController()
+      
+      try {
+        const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`, {
+          signal: abortControllerRef.current.signal
+        })
+        
+        if (response.ok) {
+          const data = await response.json()
+          setResults(data.slice(0, 8)) // 最大8件表示
+          setIsOpen(data.length > 0)
+        }
+      } catch (error) {
+        if (error instanceof Error && error.name !== 'AbortError') {
+          console.error('Search error:', error)
+        }
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    const debounceTimer = setTimeout(searchLocations, 200) // デバウンス
+    return () => clearTimeout(debounceTimer)
     setSelectedIndex(-1)
   }, [query])
 

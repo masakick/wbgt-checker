@@ -46,29 +46,39 @@ export async function getLocationInfo(locationCode: string): Promise<LocationInf
  */
 export async function getWBGTData(locationCode: string): Promise<WBGTData | null> {
   try {
-    // まずAPIエンドポイントからリアルタイムデータを取得
+    // まず現行サイトからリアルタイムデータを取得
     let jsonData: any
     try {
-      const apiUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/data/wbgt`
-      const response = await fetch(apiUrl, { cache: 'no-store' })
+      const { getCurrentSiteWBGTUrl, fetchWBGTData } = await import('./data-urls')
+      const { parseWBGTCSV } = await import('./data-processor')
       
-      if (response.ok) {
-        jsonData = await response.json()
-      } else {
-        throw new Error(`API response not ok: ${response.status}`)
+      // 現行サイトからCSVデータを取得
+      const csvData = await fetchWBGTData()
+      
+      // CSVをパース
+      const parsedData = parseWBGTCSV(csvData)
+      
+      jsonData = {
+        timestamp: new Date().toISOString(),
+        updateTime: new Date().toLocaleString('ja-JP'),
+        dataCount: parsedData.length,
+        data: parsedData,
+        source: 'current_site_csv'
       }
-    } catch (apiError) {
-      console.warn('Failed to fetch from API, trying file system:', apiError)
       
-      // APIが失敗した場合、ファイルシステムから読み込み
+      console.log(`[DATA-FETCHER] Got ${parsedData.length} records from current site CSV`)
+    } catch (apiError) {
+      console.warn('Failed to fetch from current site, trying fallback:', apiError)
+      
+      // 現行サイトが失敗した場合、静的ファイルから読み込み
       try {
-        const tmpPath = join('/tmp', 'wbgt.json')
-        const fileContent = await readFile(tmpPath, 'utf-8')
-        jsonData = JSON.parse(fileContent)
-      } catch {
         const publicPath = join(process.cwd(), 'public', 'data', 'wbgt.json')
         const fileContent = await readFile(publicPath, 'utf-8')
         jsonData = JSON.parse(fileContent)
+        console.log('[DATA-FETCHER] Using fallback static file')
+      } catch (fileError) {
+        console.warn('Static file also failed:', fileError)
+        throw apiError // 元のAPIエラーを投げる
       }
     }
     

@@ -6,7 +6,7 @@ import { ImageResponse } from 'next/og'
 import { NextRequest } from 'next/server'
 import { getWBGTLevel } from '@/lib/data-processor'
 
-export const runtime = 'edge'
+export const runtime = 'nodejs'
 
 // Font loading
 const notoSansJPBold = fetch(

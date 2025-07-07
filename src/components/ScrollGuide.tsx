@@ -28,21 +28,40 @@ export function ScrollGuide({ hideThreshold = 100 }: ScrollGuideProps) {
     }
   }, [hideThreshold])
 
+  const handleClick = () => {
+    // 予報エリアまでスムーズスクロール
+    const forecastSection = document.querySelector('[data-forecast-section]')
+    if (forecastSection) {
+      forecastSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
+
   if (!isVisible) return null
 
   return (
-    <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-40 pointer-events-none">
+    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-40">
       {/* z-40: トーストのz-50より低く設定してお気に入りフィードバックが優先される */}
-      <div className="
-        flex items-center gap-2 px-4 py-2 
-        bg-gray-800 text-white text-sm font-medium 
-        rounded-full shadow-lg
-        animate-bounce
-        opacity-80
-      ">
-        <span>スクロールして予報を見る</span>
-        <ChevronDown className="w-4 h-4" />
-      </div>
+      <button 
+        onClick={handleClick}
+        className="
+          flex items-center gap-2 px-5 py-2 
+          bg-gray-800 text-white font-medium 
+          rounded-full shadow-lg
+          animate-bounce
+          opacity-80
+          hover:opacity-100 transition-opacity
+          cursor-pointer
+          text-xs
+          min-w-48
+          justify-center
+        "
+      >
+        <span className="whitespace-nowrap">スクロールして予報を見る</span>
+        <ChevronDown className="w-4 h-4 flex-shrink-0" />
+      </button>
     </div>
   )
 }

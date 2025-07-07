@@ -215,12 +215,14 @@ export default async function WBGTLocationPage({ params }: PageProps) {
         />
 
         {/* 詳細予報テーブル（21時点） */}
-        <DetailedForecastTable
-          location={wbgtData.locationName}
-          prefecture={wbgtData.prefecture}
-          updateTime={formatJapaneseTime(wbgtData.timestamp)}
-          forecasts={wbgtData.forecast}
-        />
+        <div data-forecast-section>
+          <DetailedForecastTable
+            location={wbgtData.locationName}
+            prefecture={wbgtData.prefecture}
+            updateTime={formatJapaneseTime(wbgtData.timestamp)}
+            forecasts={wbgtData.forecast}
+          />
+        </div>
 
         {/* もっと詳しく */}
         <div className="bg-white rounded-2xl shadow-lg p-6">

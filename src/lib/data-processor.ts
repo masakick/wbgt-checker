@@ -109,13 +109,28 @@ export function parseWBGTCSV(csvText: string): WBGTData[] {
   let latestDataLine = ''
   let latestColumns: string[] = []
   
-  // 最後から有効なデータ行を探す
+  // 最後から有効なデータ行を探す（複数地点にデータがあることを確認）
   for (let i = lines.length - 1; i >= 1; i--) {
     const testColumns = lines[i].split(',')
-    if (testColumns.length >= 3 && testColumns[2].trim() !== '') {
-      latestDataLine = lines[i]
-      latestColumns = testColumns
-      break
+    
+    // 日付・時刻が存在し、かつ複数の地点にデータが存在するかチェック
+    if (testColumns.length >= locationCodes.length + 2 && 
+        testColumns[0].trim() !== '' && 
+        testColumns[1].trim() !== '') {
+      
+      // 最低10地点以上にデータがあることを確認
+      let dataCount = 0
+      for (let j = 2; j < Math.min(testColumns.length, 12); j++) {
+        if (testColumns[j].trim() !== '') {
+          dataCount++
+        }
+      }
+      
+      if (dataCount >= 5) { // 最低5地点にデータがあれば有効
+        latestDataLine = lines[i]
+        latestColumns = testColumns
+        break
+      }
     }
   }
   

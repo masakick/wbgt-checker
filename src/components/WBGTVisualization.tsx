@@ -23,6 +23,16 @@ export function WBGTVisualization({
 }: WBGTVisualizationProps) {
   const wbgtLevel = getWBGTLevel(wbgt)
 
+  // 現行サイトと同じalert_noticeとalert_description
+  const alertNotice = ["適宜水分補給","積極的に水分補給","積極的に休息","激しい運動は中止","運動は原則中止"];
+  const alertDescription = [
+    '', // ほぼ安全は空文字
+    '一般に危険性は少ないが激しい運動や\n重労働時には発生する危険性がある',
+    '運動や激しい作業をする際は\n定期的に充分に休息を取り入れる',
+    '外出時は炎天下を避け、室内では室温の上昇に注意',
+    '高齢者においては安静状態でも発生する危険性が大きい\n外出はなるべく避け、涼しい室内に移動'
+  ];
+
   return (
     <div className="w-full h-[600px] md:h-[800px] relative overflow-hidden rounded-3xl shadow-2xl">
       {/* 背景グラデーション */}
@@ -65,11 +75,24 @@ export function WBGTVisualization({
             <div className="text-3xl md:text-4xl font-bold">
               {wbgtLevel.label}
             </div>
+            
+            {/* alert_notice */}
+            <div className="text-xl md:text-2xl font-semibold">
+              {alertNotice[wbgtLevel.level]}
+            </div>
+            
+            {/* alert_description */}
+            {alertDescription[wbgtLevel.level] && (
+              <div className="text-base md:text-lg max-w-md mx-auto leading-relaxed whitespace-pre-line">
+                {alertDescription[wbgtLevel.level]}
+              </div>
+            )}
+            
             {wbgtLevel.level >= 3 && (
-              <div className="flex items-center justify-center gap-2 text-2xl animate-pulse">
-                <Zap className="w-8 h-8" />
+              <div className="flex items-center justify-center gap-2 text-xl animate-pulse">
+                <Zap className="w-6 h-6" />
                 <span>注意が必要です</span>
-                <Zap className="w-8 h-8" />
+                <Zap className="w-6 h-6" />
               </div>
             )}
           </div>

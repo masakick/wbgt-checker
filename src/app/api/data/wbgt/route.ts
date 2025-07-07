@@ -9,12 +9,26 @@ import { join } from 'path'
 
 export async function GET() {
   try {
-    // /tmp ディレクトリからデータを読み込み
+    // まずグローバルキャッシュを確認
+    if (global.wbgtDataCache) {
+      return NextResponse.json({
+        ...global.wbgtDataCache,
+        source: 'global_cache'
+      })
+    }
+    
+    // グローバルキャッシュが無い場合、/tmp ディレクトリから読み込み
     const filePath = join('/tmp', 'wbgt.json')
     const fileContent = await readFile(filePath, 'utf-8')
     const jsonData = JSON.parse(fileContent)
     
-    return NextResponse.json(jsonData)
+    // グローバルキャッシュに保存
+    global.wbgtDataCache = jsonData
+    
+    return NextResponse.json({
+      ...jsonData,
+      source: 'file_system'
+    })
   } catch (error) {
     console.error('WBGT data API error:', error)
     

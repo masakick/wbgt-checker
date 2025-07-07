@@ -52,6 +52,9 @@ export async function GET(request: NextRequest) {
     
     await writeFile(filePath, JSON.stringify(jsonData, null, 2), 'utf-8')
     
+    // グローバル変数にもキャッシュ（同一プロセス内での共有）
+    global.wbgtDataCache = jsonData
+    
     const duration = Date.now() - startTime
     console.log(`[CRON] WBGT data saved successfully in ${duration}ms`)
     
@@ -60,7 +63,8 @@ export async function GET(request: NextRequest) {
       message: 'WBGT data updated successfully',
       timestamp: jsonData.timestamp,
       dataCount: parsedData.length,
-      duration: `${duration}ms`
+      duration: `${duration}ms`,
+      cached: true
     })
     
   } catch (error) {

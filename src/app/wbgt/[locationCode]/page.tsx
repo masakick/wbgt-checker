@@ -209,6 +209,7 @@ export default async function WBGTLocationPage({ params }: PageProps) {
           regionCode={locationCode.slice(0, 2)}
           prefectureCode={locationCode.slice(0, 2)}
           pointCode={locationCode}
+          currentWBGTLevel={levelInfo.level}
         />
 
         {/* 詳細予報テーブル（21時点） */}

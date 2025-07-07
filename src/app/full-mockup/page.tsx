@@ -86,6 +86,7 @@ export default function FullMockupPage() {
           regionCode="03"
           prefectureCode="44"
           pointCode="44132"
+          currentWBGTLevel={3}
         />
 
         {/* 詳細予報テーブル（21時点） */}

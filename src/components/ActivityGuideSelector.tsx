@@ -1,21 +1,28 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { MapPin, Activity, ExternalLink } from "lucide-react"
 
 interface ActivityGuideSelectorProps {
   regionCode: string
   prefectureCode: string
   pointCode: string
+  currentWBGTLevel?: number // 現在の警戒レベル
 }
 
 export function ActivityGuideSelector({
   regionCode,
   prefectureCode,
-  pointCode
+  pointCode,
+  currentWBGTLevel = 2
 }: ActivityGuideSelectorProps) {
-  const [selectedLevel, setSelectedLevel] = useState<number>(2)
+  const [selectedLevel, setSelectedLevel] = useState<number>(currentWBGTLevel)
   const [selectedActivity, setSelectedActivity] = useState<string>("")
+
+  // currentWBGTLevelが変更された時にselectedLevelを更新
+  useEffect(() => {
+    setSelectedLevel(currentWBGTLevel)
+  }, [currentWBGTLevel])
 
   const levels = [
     { value: 0, label: "ほぼ安全", description: "通常通り活動可能", color: "bg-blue-500" },

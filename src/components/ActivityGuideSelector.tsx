@@ -25,11 +25,11 @@ export function ActivityGuideSelector({
   }, [currentWBGTLevel])
 
   const levels = [
-    { value: 0, label: "ほぼ安全", description: "通常通り活動可能", color: "bg-blue-500" },
-    { value: 1, label: "注意", description: "積極的に水分補給", color: "bg-green-500" },
+    { value: 0, label: "ほぼ安全", description: "通常は熱中症の危険は小さいが、適宜水分・塩分の補給は必要である。市民マラソンなどではこの条件でも熱中症が発生するので注意。", color: "bg-blue-500" },
+    { value: 1, label: "注意", description: "熱中症による死亡事故が発生する可能性がある。熱中症の兆候に注意するとともに、運動の合間に積極的に水分・塩分を補給する。", color: "bg-green-500" },
     { value: 2, label: "警戒", description: "熱中症の危険が増すので、積極的に休息をとり適宜、水分・塩分を補給する。激しい運動では、30分おきくらいに休息をとる。", color: "bg-yellow-500" },
-    { value: 3, label: "厳重警戒", description: "激しい運動は中止", color: "bg-orange-500" },
-    { value: 4, label: "危険", description: "すべての活動を中止", color: "bg-red-600" }
+    { value: 3, label: "厳重警戒", description: "熱中症の危険性が高いので、激しい運動や持久走など体温が上昇しやすい運動は避ける。運動する場合には、頻繁に休息をとり水分・塩分の補給を行う。体力の低い人、暑さになれていない人は運動中止。", color: "bg-orange-500" },
+    { value: 4, label: "危険", description: "特別の場合以外は運動を中止する。特に子供の場合は中止すべき。", color: "bg-red-600" }
   ]
 
   const activities = [

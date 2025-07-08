@@ -51,8 +51,10 @@ export function QRCodeSection({ pageUrl, locationName, prefecture }: QRCodeSecti
               className="w-full h-full object-contain"
             />
           ) : (
-            <div className="text-gray-500">
-              <QrCode className="w-16 h-16 mx-auto mb-2" />
+            <div className="text-gray-500 flex flex-col items-center justify-center h-full">
+              <div className="w-16 h-16 border-2 border-dashed border-gray-300 rounded mb-2 flex items-center justify-center">
+                <span className="text-xs">QR</span>
+              </div>
               <p className="text-sm">生成中...</p>
             </div>
           )}

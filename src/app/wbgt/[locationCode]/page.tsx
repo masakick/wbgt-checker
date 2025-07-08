@@ -15,6 +15,7 @@ import { FavoriteButton } from '@/components/FavoriteButton'
 import { WeatherReportStructuredData } from '@/components/StructuredData'
 import { ScrollGuide } from '@/components/ScrollGuide'
 import { LoadingManager } from '@/components/LoadingManager'
+import { AutoRefreshWrapper } from '@/components/AutoRefreshWrapper'
 import { Info } from 'lucide-react'
 import { getWBGTData, getLocationInfoSync } from '@/lib/data-fetcher'
 import { getAllLocationCodesArray } from '@/lib/complete-locations'
@@ -162,23 +163,24 @@ export default async function WBGTLocationPage({ params }: PageProps) {
   const levelInfo = getWBGTLevel(wbgtData.wbgt)
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <WeatherReportStructuredData
-        locationCode={locationCode}
-        locationName={wbgtData.locationName}
-        prefecture={wbgtData.prefecture}
-        wbgt={wbgtData.wbgt}
-        temperature={wbgtData.temperature}
-        humidity={wbgtData.humidity}
-        level={levelInfo}
-        timestamp={wbgtData.timestamp}
-      />
-      
-      {/* ローディング解除 */}
-      <LoadingManager />
-      
-      {/* ヘッダー */}
-      <NavigationHeader showBackButton={true} />
+    <AutoRefreshWrapper lastUpdated={formatJapaneseTime(wbgtData.timestamp)}>
+      <div className="min-h-screen bg-gray-50">
+        <WeatherReportStructuredData
+          locationCode={locationCode}
+          locationName={wbgtData.locationName}
+          prefecture={wbgtData.prefecture}
+          wbgt={wbgtData.wbgt}
+          temperature={wbgtData.temperature}
+          humidity={wbgtData.humidity}
+          level={levelInfo}
+          timestamp={wbgtData.timestamp}
+        />
+        
+        {/* ローディング解除 */}
+        <LoadingManager />
+        
+        {/* ヘッダー */}
+        <NavigationHeader showBackButton={true} />
 
       {/* メインコンテンツ */}
       <main className="max-w-6xl mx-auto px-4 py-6 space-y-8">
@@ -276,5 +278,6 @@ export default async function WBGTLocationPage({ params }: PageProps) {
         </div>
       </footer>
     </div>
+    </AutoRefreshWrapper>
   )
 }

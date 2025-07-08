@@ -4,12 +4,16 @@
  */
 
 const CACHE_NAME = 'wbgt-checker-v1'
+const DATA_CACHE_NAME = 'wbgt-data-v1'
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png'
 ]
+
+// キャッシュの有効期限（分）
+const CACHE_EXPIRY_MINUTES = 30
 
 // インストール時の処理
 self.addEventListener('install', (event) => {
@@ -38,7 +42,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
+          if (cacheName !== CACHE_NAME && cacheName !== DATA_CACHE_NAME) {
             console.log('[SW] Deleting old cache:', cacheName)
             return caches.delete(cacheName)
           }
@@ -51,15 +55,58 @@ self.addEventListener('activate', (event) => {
   self.clients.claim()
 })
 
+// キャッシュの有効期限をチェック
+function isExpired(response) {
+  const fetched = response.headers.get('sw-fetched-on')
+  if (fetched) {
+    const elapsed = Date.now() - new Date(fetched).getTime()
+    return elapsed > (CACHE_EXPIRY_MINUTES * 60 * 1000)
+  }
+  return true
+}
+
 // フェッチ時の処理（ネットワーク優先戦略）
 self.addEventListener('fetch', (event) => {
   const { request } = event
   
-  // データAPIリクエストは常にネットワークから取得
+  // データAPIリクエストの特別処理
   if (request.url.includes('/api/') || request.url.includes('/data/')) {
-    return // キャッシュしない
+    event.respondWith(
+      caches.open(DATA_CACHE_NAME).then((cache) => {
+        return fetch(request)
+          .then((response) => {
+            // ネットワークから取得成功時はキャッシュを更新
+            if (response.status === 200) {
+              const headers = new Headers(response.headers)
+              headers.append('sw-fetched-on', new Date().toISOString())
+              
+              const responseWithHeaders = new Response(response.body, {
+                status: response.status,
+                statusText: response.statusText,
+                headers: headers
+              })
+              
+              cache.put(request, responseWithHeaders.clone())
+              return response
+            }
+            return response
+          })
+          .catch(() => {
+            // ネットワークエラー時はキャッシュから返す（期限切れでも）
+            return cache.match(request).then((cachedResponse) => {
+              if (cachedResponse) {
+                console.log('[SW] Serving data from cache (offline):', request.url)
+                return cachedResponse
+              }
+              return new Response('Network error', { status: 503 })
+            })
+          })
+      })
+    )
+    return
   }
   
+  // その他のリクエスト
   event.respondWith(
     fetch(request)
       .then((response) => {
@@ -134,5 +181,23 @@ self.addEventListener('notificationclick', (event) => {
     event.waitUntil(
       self.clients.openWindow('/')
     )
+  }
+})
+
+// メッセージ受信時の処理
+self.addEventListener('message', (event) => {
+  console.log('[SW] Message received:', event.data)
+  
+  if (event.data && event.data.type === 'CLEAR_DATA_CACHE') {
+    event.waitUntil(
+      caches.delete(DATA_CACHE_NAME).then(() => {
+        console.log('[SW] Data cache cleared')
+        return caches.open(DATA_CACHE_NAME)
+      })
+    )
+  }
+  
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting()
   }
 })

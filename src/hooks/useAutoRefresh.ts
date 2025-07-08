@@ -6,6 +6,7 @@
 
 import { useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
+import { useLoading } from '@/contexts/LoadingContext'
 
 interface AutoRefreshOptions {
   lastUpdated?: string // 最終更新時刻
@@ -19,6 +20,7 @@ export function useAutoRefresh({
   onRefresh
 }: AutoRefreshOptions = {}) {
   const router = useRouter()
+  const { setIsLoading } = useLoading()
 
   // データが古いかチェック
   const isDataStale = useCallback(() => {
@@ -55,11 +57,14 @@ export function useAutoRefresh({
   // ページをリフレッシュ
   const refreshPage = useCallback(() => {
     console.log('[AutoRefresh] データを更新します')
+    
+    // ローディング表示を開始
+    setIsLoading(true)
+    
     if (onRefresh) {
       onRefresh()
     } else {
       // onRefreshが指定されていない場合はページ全体をリロード
-      router.refresh()
       // 強制的に再検証
       if ('caches' in window) {
         caches.keys().then(names => {
@@ -76,8 +81,14 @@ export function useAutoRefresh({
           })
         })
       }
+      
+      // 少し遅延を入れてからリフレッシュ（ローディング表示を見せるため）
+      setTimeout(() => {
+        // ページ全体をリロード（より確実な更新）
+        window.location.reload()
+      }, 100)
     }
-  }, [router, onRefresh])
+  }, [router, onRefresh, setIsLoading])
 
   useEffect(() => {
     // 初回マウント時にデータが古い場合は更新

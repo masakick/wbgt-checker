@@ -8,10 +8,10 @@ interface AutoRefreshWrapperProps {
 }
 
 export function AutoRefreshWrapper({ lastUpdated, children }: AutoRefreshWrapperProps) {
-  // 30分以上古いデータは自動更新
+  // 60分以上古いデータは自動更新（頻繁な更新を防ぐため）
   useAutoRefresh({
     lastUpdated,
-    refreshThresholdMinutes: 30
+    refreshThresholdMinutes: 60
   })
 
   return <>{children}</>

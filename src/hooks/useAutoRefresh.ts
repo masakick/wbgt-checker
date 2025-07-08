@@ -4,7 +4,7 @@
  * - 古いデータの検出と自動更新
  */
 
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useLoading } from '@/contexts/LoadingContext'
 
@@ -21,6 +21,9 @@ export function useAutoRefresh({
 }: AutoRefreshOptions = {}) {
   const router = useRouter()
   const { setIsLoading } = useLoading()
+  
+  // 更新が実行されたかを追跡（同じセッション内での重複更新を防ぐ）
+  const [hasRefreshed, setHasRefreshed] = useState(false)
 
   // データが古いかチェック
   const isDataStale = useCallback(() => {
@@ -91,10 +94,18 @@ export function useAutoRefresh({
   }, [router, onRefresh, setIsLoading])
 
   useEffect(() => {
-    // 初回マウント時にデータが古い場合は更新
-    if (isDataStale()) {
+    // 既に更新済みの場合は何もしない
+    if (hasRefreshed) {
+      return
+    }
+    
+    // 初回マウント時にデータが古い場合は更新（一度だけ）
+    const isStale = isDataStale()
+    if (isStale) {
       console.log('[AutoRefresh] 古いデータを検出しました')
+      setHasRefreshed(true) // 更新済みフラグを立てる
       refreshPage()
+      return // 更新を開始したらイベントリスナーは設定しない
     }
 
     // Page Visibility API を使用してフォーカス時に更新
@@ -133,7 +144,7 @@ export function useAutoRefresh({
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       window.removeEventListener('focus', handleFocus)
     }
-  }, [isDataStale, refreshPage])
+  }, []) // 依存配列を空にして初回のみ実行
 
   return { isDataStale: isDataStale(), refreshPage }
 }

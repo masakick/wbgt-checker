@@ -27,12 +27,18 @@ export function useAutoRefresh({
 
   // データが古いかチェック
   const isDataStale = useCallback(() => {
-    if (!lastUpdated) return true
+    if (!lastUpdated) {
+      console.log('[AutoRefresh] lastUpdated is empty')
+      return true
+    }
     
     try {
       // 最終更新時刻をパース（"7月8日 15時30分" 形式）
       const dateMatch = lastUpdated.match(/(\d+)月(\d+)日\s*(\d+)時(\d+)分/)
-      if (!dateMatch) return true
+      if (!dateMatch) {
+        console.log('[AutoRefresh] 日付フォーマットが一致しません:', lastUpdated)
+        return false // パースできない場合は更新しない
+      }
 
       const [, month, day, hour, minute] = dateMatch
       const now = new Date()
@@ -50,10 +56,11 @@ export function useAutoRefresh({
       }
 
       const diffMinutes = (now.getTime() - updateDate.getTime()) / (1000 * 60)
+      console.log(`[AutoRefresh] 最終更新: ${lastUpdated}, 経過時間: ${diffMinutes.toFixed(1)}分, 閾値: ${refreshThresholdMinutes}分`)
       return diffMinutes > refreshThresholdMinutes
     } catch (error) {
-      console.error('日付パースエラー:', error)
-      return true
+      console.error('[AutoRefresh] 日付パースエラー:', error)
+      return false // エラーの場合は更新しない
     }
   }, [lastUpdated, refreshThresholdMinutes])
 

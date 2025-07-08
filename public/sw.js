@@ -69,6 +69,12 @@ function isExpired(response) {
 self.addEventListener('fetch', (event) => {
   const { request } = event
   
+  // POSTリクエストはキャッシュしない
+  if (request.method !== 'GET') {
+    event.respondWith(fetch(request))
+    return
+  }
+  
   // データAPIリクエストの特別処理
   if (request.url.includes('/api/') || request.url.includes('/data/')) {
     event.respondWith(

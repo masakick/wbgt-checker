@@ -5,10 +5,12 @@ import Link from 'next/link'
 import { MapPin, ChevronRight } from 'lucide-react'
 import { regions, getPrefecturesByRegion } from '@/lib/region-data'
 import { getAllCompleteLocations } from '@/lib/complete-locations'
+import { useLoading } from '@/contexts/LoadingContext'
 
 export function RegionSelector() {
   const [selectedRegion, setSelectedRegion] = useState<string>('')
   const [selectedPrefecture, setSelectedPrefecture] = useState<string>('')
+  const { setIsLoading } = useLoading()
   
   // スクロール用のref
   const prefectureRef = useRef<HTMLDivElement>(null)
@@ -190,6 +192,7 @@ export function RegionSelector() {
                 key={location.code}
                 href={`/wbgt/${location.code}`}
                 className="block p-4 border border-gray-200 rounded-lg hover:border-orange-500 hover:shadow-md transition-all"
+                onClick={() => setIsLoading(true)}
               >
                 <div className="flex items-center justify-between">
                   <div>

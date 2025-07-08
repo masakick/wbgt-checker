@@ -6,6 +6,8 @@ import { WebVitalsReporter } from "@/components/WebVitalsReporter";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import { ToastProvider } from "@/contexts/ToastContext";
 import { ToastContainer } from "@/components/Toast";
+import { LoadingProvider } from "@/contexts/LoadingContext";
+import { LoadingOverlay } from "@/components/LoadingOverlay";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -72,10 +74,13 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${notoSansJP.className} antialiased`}>
-        <ToastProvider>
-          {children}
-          <ToastContainer />
-        </ToastProvider>
+        <LoadingProvider>
+          <ToastProvider>
+            {children}
+            <ToastContainer />
+            <LoadingOverlay />
+          </ToastProvider>
+        </LoadingProvider>
         <PWAInstaller />
         <WebVitalsReporter />
         <AnalyticsProvider />

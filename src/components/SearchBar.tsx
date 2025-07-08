@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Search, MapPin } from 'lucide-react'
 import Link from 'next/link'
+import { useLoading } from '@/contexts/LoadingContext'
 
 interface SearchResult {
   code: string
@@ -20,6 +21,7 @@ export function SearchBar({ isInModal = false }: SearchBarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const [isLoading, setIsLoading] = useState(false)
+  const { setIsLoading: setGlobalLoading } = useLoading()
   const inputRef = useRef<HTMLInputElement>(null)
   const resultsRef = useRef<HTMLDivElement>(null)
   const abortControllerRef = useRef<AbortController | null>(null)
@@ -148,7 +150,10 @@ export function SearchBar({ isInModal = false }: SearchBarProps) {
                 ${index === selectedIndex ? 'bg-blue-50' : ''}
               `}
               onMouseEnter={() => setSelectedIndex(index)}
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false)
+                setGlobalLoading(true)
+              }}
             >
               <div className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-blue-500 flex-shrink-0" />

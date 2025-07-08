@@ -14,6 +14,7 @@ import { NavigationHeader } from '@/components/NavigationHeader'
 import { FavoriteButton } from '@/components/FavoriteButton'
 import { WeatherReportStructuredData } from '@/components/StructuredData'
 import { ScrollGuide } from '@/components/ScrollGuide'
+import { LoadingManager } from '@/components/LoadingManager'
 import { Info } from 'lucide-react'
 import { getWBGTData, getLocationInfoSync } from '@/lib/data-fetcher'
 import { getAllLocationCodesArray } from '@/lib/complete-locations'
@@ -171,6 +172,9 @@ export default async function WBGTLocationPage({ params }: PageProps) {
         level={levelInfo}
         timestamp={wbgtData.timestamp}
       />
+      
+      {/* ローディング解除 */}
+      <LoadingManager />
       
       {/* ヘッダー */}
       <NavigationHeader showBackButton={true} />

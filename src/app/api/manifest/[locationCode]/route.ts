@@ -25,7 +25,7 @@ export async function GET(
       "background_color": "#ffffff",
       "theme_color": "#3b82f6",
       "orientation": "portrait-primary",
-      "scope": "/",
+      "scope": `/wbgt/${locationCode}`,
       "lang": "ja",
       "categories": ["health", "weather", "utilities"],
       "icons": [

@@ -15,7 +15,6 @@ import { FavoriteButton } from '@/components/FavoriteButton'
 import { WeatherReportStructuredData } from '@/components/StructuredData'
 import { ScrollGuide } from '@/components/ScrollGuide'
 import { LoadingManager } from '@/components/LoadingManager'
-import { DynamicManifest } from '@/components/DynamicManifest'
 import { Info } from 'lucide-react'
 import { getWBGTData, getLocationInfoSync } from '@/lib/data-fetcher'
 import { getAllLocationCodesArray } from '@/lib/complete-locations'
@@ -115,6 +114,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${locationInfo.name}の暑さ指数 - 熱中症予防情報`,
     description: `${locationInfo.name}（${locationInfo.prefecture}）の暑さ指数（WBGT）をリアルタイムで確認。21時点詳細予報と運動指針で熱中症を予防しましょう。`,
+    manifest: `/api/manifest/${locationCode}`,
     openGraph: {
       title: `${locationInfo.name}の暑さ指数`,
       description: `現在の暑さ指数とともに熱中症予防情報をお届けします`,
@@ -176,9 +176,6 @@ export default async function WBGTLocationPage({ params }: PageProps) {
       
       {/* ローディング解除 */}
       <LoadingManager />
-      
-      {/* 動的Manifest */}
-      <DynamicManifest locationCode={locationCode} />
       
       {/* ヘッダー */}
       <NavigationHeader showBackButton={true} />

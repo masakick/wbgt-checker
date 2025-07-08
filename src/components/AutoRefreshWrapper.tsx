@@ -1,6 +1,7 @@
 "use client"
 
-import { useAutoRefresh } from '@/hooks/useAutoRefresh'
+import { usePWARefresh } from '@/hooks/usePWARefresh'
+import { usePathname } from 'next/navigation'
 
 interface AutoRefreshWrapperProps {
   lastUpdated: string
@@ -8,11 +9,17 @@ interface AutoRefreshWrapperProps {
 }
 
 export function AutoRefreshWrapper({ lastUpdated, children }: AutoRefreshWrapperProps) {
-  // 一時的に自動更新を無効化（デバッグのため）
-  // useAutoRefresh({
-  //   lastUpdated,
-  //   refreshThresholdMinutes: 60
-  // })
+  const pathname = usePathname()
+  
+  // パスから地点コードを取得
+  const locationCode = pathname.split('/').pop() || ''
+  
+  // PWA専用の更新フックを使用（60分以上古いデータを更新）
+  usePWARefresh({
+    locationCode,
+    lastUpdated,
+    refreshThresholdMinutes: 60
+  })
 
   return <>{children}</>
 }

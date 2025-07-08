@@ -63,8 +63,9 @@ export function SearchBar({ isInModal = false }: SearchBarProps) {
     }
 
     const debounceTimer = setTimeout(searchLocations, 200) // デバウンス
-    return () => clearTimeout(debounceTimer)
     setSelectedIndex(-1)
+    
+    return () => clearTimeout(debounceTimer)
   }, [query])
 
   // キーボードナビゲーション

@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { QrCode } from "lucide-react"
 
 interface QRCodeSectionProps {
   pageUrl: string
@@ -38,8 +37,7 @@ export function QRCodeSection({ pageUrl, locationName, prefecture }: QRCodeSecti
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 text-center">
-      <h2 className="text-2xl font-bold mb-4 flex items-center justify-center gap-2">
-        <QrCode className="w-6 h-6" />
+      <h2 className="text-2xl font-bold mb-4">
         {locationName && prefecture ? `${locationName}（${prefecture}）のQRコード` : 'このページのQRコード'}
       </h2>
       <p className="text-gray-600 mb-6">情報を周囲の方と共有してください</p>

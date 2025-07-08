@@ -116,21 +116,8 @@ export function WBGTVisualization({
           </div>
         </div>
 
-        {/* 下部のナビゲーション */}
-        <div className="flex justify-between items-center">
-          <button 
-            onClick={() => window.location.href = '/'}
-            className="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 hover:bg-white/30 transition-colors"
-          >
-            地点を選択
-          </button>
-          <button 
-            onClick={() => window.location.reload()}
-            className="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 hover:bg-white/30 transition-colors"
-          >
-            データ再読込み
-          </button>
-        </div>
+        {/* 下部スペース */}
+        <div></div>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 "use client"
 
 import { cn, getWBGTLevel, getSportsGuideline } from "@/lib/utils"
-import { Calendar, Clock } from "lucide-react"
+import { Clock } from "lucide-react"
 
 interface ForecastData {
   date: string
@@ -28,8 +28,7 @@ export function DetailedForecastTable({
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6">
-        <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
-          <Calendar className="w-6 h-6" />
+        <h2 className="text-2xl font-bold mb-2">
           3時間ごとの暑さ指数予測
         </h2>
         <p className="flex items-center gap-2 opacity-90">

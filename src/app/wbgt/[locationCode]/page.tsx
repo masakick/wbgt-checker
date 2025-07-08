@@ -15,6 +15,7 @@ import { FavoriteButton } from '@/components/FavoriteButton'
 import { WeatherReportStructuredData } from '@/components/StructuredData'
 import { ScrollGuide } from '@/components/ScrollGuide'
 import { LoadingManager } from '@/components/LoadingManager'
+import { DynamicManifest } from '@/components/DynamicManifest'
 import { Info } from 'lucide-react'
 import { getWBGTData, getLocationInfoSync } from '@/lib/data-fetcher'
 import { getAllLocationCodesArray } from '@/lib/complete-locations'
@@ -175,6 +176,9 @@ export default async function WBGTLocationPage({ params }: PageProps) {
       
       {/* ローディング解除 */}
       <LoadingManager />
+      
+      {/* 動的Manifest */}
+      <DynamicManifest locationCode={locationCode} />
       
       {/* ヘッダー */}
       <NavigationHeader showBackButton={true} />

@@ -83,9 +83,13 @@ export function usePWARefresh({
       
       // Service Workerのデータキャッシュをクリア
       if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({
-          type: 'CLEAR_DATA_CACHE'
-        })
+        try {
+          navigator.serviceWorker.controller.postMessage({
+            type: 'CLEAR_DATA_CACHE'
+          })
+        } catch (error) {
+          console.log('[PWARefresh] Service Worker メッセージ送信エラー:', error)
+        }
       }
       
       setTimeout(() => {

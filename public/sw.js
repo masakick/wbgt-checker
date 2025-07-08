@@ -3,8 +3,8 @@
  * 基本的なキャッシング機能のみ実装
  */
 
-const CACHE_NAME = 'wbgt-checker-v1'
-const DATA_CACHE_NAME = 'wbgt-data-v1'
+const CACHE_NAME = 'wbgt-checker-v2'
+const DATA_CACHE_NAME = 'wbgt-data-v2'
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
@@ -69,14 +69,20 @@ function isExpired(response) {
 self.addEventListener('fetch', (event) => {
   const { request } = event
   
+  // APIリクエストは常にネットワークから取得（キャッシュしない）
+  if (request.url.includes('/api/')) {
+    event.respondWith(fetch(request))
+    return
+  }
+  
   // POSTリクエストはキャッシュしない
   if (request.method !== 'GET') {
     event.respondWith(fetch(request))
     return
   }
   
-  // データAPIリクエストの特別処理
-  if (request.url.includes('/api/') || request.url.includes('/data/')) {
+  // データリクエストの特別処理
+  if (request.url.includes('/data/')) {
     event.respondWith(
       caches.open(DATA_CACHE_NAME).then((cache) => {
         return fetch(request)

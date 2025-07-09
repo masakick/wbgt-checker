@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react'
-import { Menu, X, Search, MapPin, Heart, Info, ArrowUp } from 'lucide-react'
+import { Menu, X, Search, MapPin, Heart, Info, ArrowUp, MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 
 interface HeaderMenuProps {
@@ -105,6 +105,18 @@ export function HeaderMenu({ onSearchClick, onRegionClick, onFavoritesClick }: H
               <Info className="w-5 h-5" />
               <span className="font-medium">このサイトについて</span>
             </Link>
+
+            {/* お問い合わせ */}
+            <a
+              href="https://forms.gle/YY5RfLTFermQdk7VA"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={closeMenu}
+              className="w-full flex items-center gap-3 px-4 py-3 text-left text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-lg transition-colors"
+            >
+              <MessageSquare className="w-5 h-5" />
+              <span className="font-medium">お問い合わせ</span>
+            </a>
 
             {/* トップへ戻る */}
             <button

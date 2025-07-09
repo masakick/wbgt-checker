@@ -273,7 +273,8 @@ export default async function WBGTLocationPage({ params }: PageProps) {
             ,
             <a href="https://www.jma.go.jp/jma/index.html" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">気象庁</a>
             <br />
-            開発：一橋大学大学院ソーシャル・データサイエンス研究科　山辺真幸
+            開発：一橋大学大学院ソーシャル・データサイエンス研究科　
+            <a href="https://x.com/masakick" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">山辺真幸</a>
           </p>
         </div>
       </footer>

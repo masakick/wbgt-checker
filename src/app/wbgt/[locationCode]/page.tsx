@@ -226,7 +226,7 @@ export default async function WBGTLocationPage({ params }: PageProps) {
           <DetailedForecastTable
             location={wbgtData.locationName}
             prefecture={wbgtData.prefecture}
-            updateTime={formatJapaneseTime(wbgtData.timestamp)}
+            updateTime={wbgtData.forecastUpdateTime || formatJapaneseTime(wbgtData.timestamp)}
             forecasts={wbgtData.forecast}
           />
         </div>

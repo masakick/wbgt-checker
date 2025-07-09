@@ -13,6 +13,7 @@ export interface WBGTData {
   humidity: number
   timestamp: string
   forecast: WBGTForecast[]
+  forecastUpdateTime?: string
 }
 
 export interface WBGTForecast {
@@ -36,7 +37,7 @@ export interface TemperatureData {
  * CSVの形式: 空行,空行,2025070718,2025070721,... (ヘッダーが予報時刻)
  *            11001,2025/07/07 15:25,210,180,... (地点コードごとの予報値)
  */
-export function parseForecastCSV(csvText: string): Record<string, WBGTForecast[]> {
+export function parseForecastCSV(csvText: string): Record<string, { updateTime: string; forecasts: WBGTForecast[] }> {
   const lines = csvText.split('\n').filter(line => line.trim())
   
   if (lines.length < 2) {
@@ -47,7 +48,7 @@ export function parseForecastCSV(csvText: string): Record<string, WBGTForecast[]
   const headerColumns = lines[0].split(',')
   const forecastTimes = headerColumns.slice(2) // 最初の2列は空
   
-  const result: Record<string, WBGTForecast[]> = {}
+  const result: Record<string, { updateTime: string; forecasts: WBGTForecast[] }> = {}
   
   // 各地点の予報データを処理
   for (let i = 1; i < lines.length; i++) {
@@ -84,7 +85,10 @@ export function parseForecastCSV(csvText: string): Record<string, WBGTForecast[]
       }
     })
     
-    result[locationCode] = forecasts
+    result[locationCode] = {
+      updateTime: updateTime,
+      forecasts: forecasts
+    }
   }
   
   return result

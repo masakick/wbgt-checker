@@ -90,9 +90,10 @@ export async function getWBGTData(locationCode: string): Promise<WBGTData | null
         
         // 予報データを統合
         parsedData.forEach(wbgtItem => {
-          const forecasts = forecastData[wbgtItem.locationCode]
-          if (forecasts && forecasts.length > 0) {
-            wbgtItem.forecast = forecasts
+          const forecastInfo = forecastData[wbgtItem.locationCode]
+          if (forecastInfo && forecastInfo.forecasts && forecastInfo.forecasts.length > 0) {
+            wbgtItem.forecast = forecastInfo.forecasts
+            wbgtItem.forecastUpdateTime = forecastInfo.updateTime
           }
         })
         

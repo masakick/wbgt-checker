@@ -19,7 +19,7 @@ import { AutoRefreshWrapper } from '@/components/AutoRefreshWrapper'
 import { Info } from 'lucide-react'
 import { getWBGTData, getLocationInfoSync } from '@/lib/data-fetcher'
 import { getAllLocationCodesArray } from '@/lib/complete-locations'
-import { formatJapaneseTime } from '@/lib/format-time'
+import { formatJapaneseTime, formatForecastUpdateTime } from '@/lib/format-time'
 import { getRedirectPath } from '@/lib/location-redirects'
 import { getRegionByPrefectureCode } from '@/lib/region-data'
 import { redirect } from 'next/navigation'
@@ -226,7 +226,7 @@ export default async function WBGTLocationPage({ params }: PageProps) {
           <DetailedForecastTable
             location={wbgtData.locationName}
             prefecture={wbgtData.prefecture}
-            updateTime={wbgtData.forecastUpdateTime || formatJapaneseTime(wbgtData.timestamp)}
+            updateTime={wbgtData.forecastUpdateTime ? formatForecastUpdateTime(wbgtData.forecastUpdateTime) : formatJapaneseTime(wbgtData.timestamp)}
             forecasts={wbgtData.forecast}
           />
         </div>

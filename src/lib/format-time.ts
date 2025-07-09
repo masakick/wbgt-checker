@@ -17,3 +17,23 @@ export function formatJapaneseTime(dateString: string | Date): string {
   
   return `${month}月${day}日 ${hour}時${minute.toString().padStart(2, '0')}分`
 }
+
+/**
+ * 予報更新時刻をフォーマット（"2025/07/09 15:25" → "7月9日 15時25分"）
+ */
+export function formatForecastUpdateTime(updateTimeString: string): string {
+  try {
+    // "2025/07/09 15:25" 形式をパース
+    const match = updateTimeString.match(/(\d{4})\/(\d{1,2})\/(\d{1,2})\s*(\d{1,2}):(\d{1,2})/)
+    if (!match) {
+      return updateTimeString // パースできない場合は元の文字列を返す
+    }
+    
+    const [, year, month, day, hour, minute] = match
+    
+    return `${parseInt(month)}月${parseInt(day)}日 ${parseInt(hour)}時${parseInt(minute)}分`
+  } catch (error) {
+    console.warn('Failed to format forecast update time:', error)
+    return updateTimeString // エラーの場合は元の文字列を返す
+  }
+}

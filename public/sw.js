@@ -69,8 +69,8 @@ function isExpired(response) {
 self.addEventListener('fetch', (event) => {
   const { request } = event
   
-  // APIリクエストは常にネットワークから取得（キャッシュしない）
-  if (request.url.includes('/api/')) {
+  // APIリクエストと地点詳細ページは常にネットワークから取得（キャッシュしない）
+  if (request.url.includes('/api/') || request.url.includes('/wbgt/')) {
     event.respondWith(fetch(request))
     return
   }

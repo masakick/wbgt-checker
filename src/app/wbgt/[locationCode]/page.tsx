@@ -78,8 +78,9 @@ export async function generateStaticParams() {
   }))
 }
 
-// ISR設定 - 20分ごとに再生成（データ更新に対応）
-export const revalidate = 1200
+// キャッシュを無効化して常に最新データを取得
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 // 840地点すべてに対応するため、未生成パラメータを動的に生成
 export const dynamicParams = true

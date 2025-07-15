@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { Thermometer, Clock } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { Thermometer, Clock, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { formatJapaneseTime } from '@/lib/format-time'
 
@@ -28,6 +29,8 @@ const MAJOR_LOCATIONS = [
 export function MainLocations() {
   const [wbgtData, setWbgtData] = useState<Record<string, WBGTData>>({})
   const [dataLoading, setDataLoading] = useState(false)
+  const [navigatingTo, setNavigatingTo] = useState<string | null>(null)
+  const router = useRouter()
 
   // 地点コードの配列
   const locationCodes = MAJOR_LOCATIONS.map(loc => loc.code)
@@ -107,6 +110,18 @@ export function MainLocations() {
     fetchWBGTData()
   }, [locationCodesKey])
 
+  // リンククリック時のハンドラー
+  const handleLinkClick = (e: React.MouseEvent, locationCode: string) => {
+    e.preventDefault()
+    setNavigatingTo(locationCode)
+    router.push(`/wbgt/${locationCode}`)
+  }
+
+  // プリフェッチ機能
+  const handleMouseEnter = (locationCode: string) => {
+    router.prefetch(`/wbgt/${locationCode}`)
+  }
+
   // 警戒レベルに応じた色クラスを取得
   const getLevelColor = (level: number) => {
     switch(level) {
@@ -132,10 +147,12 @@ export function MainLocations() {
           const hasData = data && data.wbgt !== null
           
           return (
-            <Link
+            <button
               key={location.code}
-              href={`/wbgt/${location.code}`}
-              className="block bg-gray-50 rounded-lg p-4 hover:shadow-lg transition-all hover:bg-gray-100"
+              onClick={(e) => handleLinkClick(e, location.code)}
+              onMouseEnter={() => handleMouseEnter(location.code)}
+              className="block bg-gray-50 rounded-lg p-4 hover:shadow-lg transition-all hover:bg-gray-100 w-full text-left"
+              disabled={navigatingTo === location.code}
             >
               {/* 時刻を上部に表示 */}
               {hasData && data.updateTime && (
@@ -146,13 +163,21 @@ export function MainLocations() {
               )}
               
               <div className="flex justify-between items-start mb-2">
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-lg">
-                    {location.name}
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    {location.prefecture}
-                  </p>
+                <div className="flex items-center gap-2">
+                  <div>
+                    <h3 className={cn(
+                      "font-semibold text-gray-900 text-lg",
+                      navigatingTo === location.code && "text-blue-600"
+                    )}>
+                      {location.name}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      {location.prefecture}
+                    </p>
+                  </div>
+                  {navigatingTo === location.code && (
+                    <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                  )}
                 </div>
                 {hasData && (
                   <span
@@ -192,7 +217,7 @@ export function MainLocations() {
                   <span className="text-sm">暑さ指数を確認</span>
                 </div>
               )}
-            </Link>
+            </button>
           )
         })}
       </div>

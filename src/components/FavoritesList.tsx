@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { Heart, Trash2, Clock } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { Heart, Trash2, Clock, Loader2 } from 'lucide-react'
 import { useFavorites } from '@/hooks/useFavorites'
 import { cn } from '@/lib/utils'
 import { formatJapaneseTime } from '@/lib/format-time'
@@ -20,6 +21,8 @@ export function FavoritesList() {
   const { favorites, removeFavorite, isLoading } = useFavorites()
   const [wbgtData, setWbgtData] = useState<Record<string, WBGTData>>({})
   const [dataLoading, setDataLoading] = useState(false)
+  const [navigatingTo, setNavigatingTo] = useState<string | null>(null)
+  const router = useRouter()
 
   // 地点コードの配列をメモ化して依存配列を安定させる
   const locationCodes = useMemo(() => favorites.map(f => f.code), [favorites])
@@ -107,6 +110,13 @@ export function FavoritesList() {
     fetchWBGTData()
   }, [locationCodesKey])
 
+  // リンククリック時のハンドラー
+  const handleLinkClick = (e: React.MouseEvent, locationCode: string) => {
+    e.preventDefault()
+    setNavigatingTo(locationCode)
+    router.push(`/wbgt/${locationCode}`)
+  }
+
   if (isLoading) {
     return (
       <div className="bg-white rounded-2xl shadow-lg p-6">
@@ -167,9 +177,10 @@ export function FavoritesList() {
           return (
             <div key={favorite.code} className="bg-gray-50 rounded-lg p-4 space-y-2">
               <div className="flex justify-between items-start">
-                <Link
-                  href={`/wbgt/${favorite.code}`}
-                  className="flex-1 block"
+                <button
+                  onClick={(e) => handleLinkClick(e, favorite.code)}
+                  className="flex-1 block text-left"
+                  disabled={navigatingTo === favorite.code}
                 >
                   {/* 時刻を上部に表示 */}
                   {hasData && data.updateTime && (
@@ -180,11 +191,19 @@ export function FavoritesList() {
                   )}
                   
                   <div className="flex justify-between items-start mb-2">
-                    <div>
-                      <h3 className="font-semibold text-gray-900 hover:text-blue-600">
-                        {favorite.name}
-                      </h3>
-                      <p className="text-sm text-gray-600">{favorite.prefecture}</p>
+                    <div className="flex items-center gap-2">
+                      <div>
+                        <h3 className={cn(
+                          "font-semibold text-gray-900 hover:text-blue-600",
+                          navigatingTo === favorite.code && "text-blue-600"
+                        )}>
+                          {favorite.name}
+                        </h3>
+                        <p className="text-sm text-gray-600">{favorite.prefecture}</p>
+                      </div>
+                      {navigatingTo === favorite.code && (
+                        <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                      )}
                     </div>
                     {hasData && (
                       <span
@@ -221,7 +240,7 @@ export function FavoritesList() {
                   {!hasData && !dataLoading && (
                     <div className="text-sm text-gray-500">データなし</div>
                   )}
-                </Link>
+                </button>
                 
                 <button
                   onClick={(e) => {

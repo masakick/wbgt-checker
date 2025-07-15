@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ja_JP",
-    url: "https://your-domain.com",
+    url: "https://atsusa.jp",
     title: "暑さ指数チェッカー",
     description: "全国840地点の暑さ指数（WBGT）をリアルタイムで確認できる熱中症予防アプリ",
     siteName: "暑さ指数チェッカー",

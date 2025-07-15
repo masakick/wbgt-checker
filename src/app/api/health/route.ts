@@ -37,9 +37,9 @@ export async function GET(request: NextRequest) {
   try {
     // サービス状況チェック
     const services = {
-      database: 'up' as const, // ファイルベースのため常にup
-      dataFetcher: 'up' as const,
-      externalAPIs: 'up' as const
+      database: 'up' as 'up' | 'down', // ファイルベースのため常にup
+      dataFetcher: 'up' as 'up' | 'down',
+      externalAPIs: 'up' as 'up' | 'down'
     }
     
     let dataFetchTime: number | undefined

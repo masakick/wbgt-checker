@@ -14,12 +14,12 @@ import { AutoRefreshWrapper } from '@/components/AutoRefreshWrapper'
 import { Info } from 'lucide-react'
 import { formatJapaneseTime, formatForecastUpdateTime } from '@/lib/format-time'
 import { getRegionByPrefectureCode } from '@/lib/region-data'
-import type { WBGTData, WBGTLevel } from '@/types'
+import type { WBGTData } from '@/lib/data-processor'
 
 interface WBGTLocationPageClientProps {
   locationCode: string
   wbgtData: WBGTData
-  levelInfo: WBGTLevel
+  levelInfo: { level: number; label: string; guidance: string }
   pageUrl: string
 }
 

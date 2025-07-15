@@ -84,6 +84,8 @@ export default function AboutPage() {
               >
                 @masakick
               </a>
+              <br /><br />
+              このサイトは個人で運営されており、運営者の所属組織は一切関係ございません。
             </p>
 
             <hr className="my-8" />
@@ -132,8 +134,8 @@ export default function AboutPage() {
 
             <h2 className="text-xl font-bold text-gray-900 mb-4">更新履歴</h2>
             <ul className="list-disc list-inside text-gray-700 space-y-1">
-              <li>2025/06/21: Next.js版として全面リニューアル</li>
-              <li>2021/07/27: 公開</li>
+              <li>2025/07/15: 新デザインでリニューアル公開</li>
+              <li>2021/07/27: 初回公開</li>
             </ul>
           </div>
         </div>

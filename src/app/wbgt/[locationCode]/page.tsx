@@ -5,18 +5,8 @@
 
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { WBGTVisualization } from '@/components/WBGTVisualization'
-import { DetailedForecastTable } from '@/components/DetailedForecastTable'
-import { ActivityGuideSelector } from '@/components/ActivityGuideSelector'
-import { ShareButtons } from '@/components/ShareButtons'
-import { QRCodeSection } from '@/components/QRCodeSection'
-import { NavigationHeader } from '@/components/NavigationHeader'
-import { FavoriteButton } from '@/components/FavoriteButton'
 import { WeatherReportStructuredData } from '@/components/StructuredData'
-import { ScrollGuide } from '@/components/ScrollGuide'
-import { LoadingManager } from '@/components/LoadingManager'
-import { AutoRefreshWrapper } from '@/components/AutoRefreshWrapper'
-import { Info } from 'lucide-react'
+import { WBGTLocationPageClient } from '@/components/WBGTLocationPageClient'
 import { getWBGTData, getLocationInfoSync } from '@/lib/data-fetcher'
 import { getAllLocationCodesArray } from '@/lib/complete-locations'
 import { formatJapaneseTime, formatForecastUpdateTime } from '@/lib/format-time'
@@ -106,11 +96,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
   }
   
-  // Get current WBGT data for OGP
+  // Get current WBGT data for share text
   const wbgtData = await getWBGTData(locationCode)
-  const ogImageUrl = wbgtData 
-    ? `${process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com'}/api/og?location=${encodeURIComponent(locationInfo.name)}&wbgt=${wbgtData.wbgt}&temp=${wbgtData.temperature}&humidity=${wbgtData.humidity}`
-    : undefined
+  const { getWBGTLevel } = await import('@/lib/data-processor')
+  const { formatJapaneseTime } = await import('@/lib/format-time')
+  
+  // 固定OGP画像
+  const ogImageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com'}/og-image.svg`
+  
+  // SNSシェア用の文字情報を作成
+  let shareDescription = `${locationInfo.name}（${locationInfo.prefecture}）の暑さ指数をリアルタイムで確認`
+  
+  if (wbgtData) {
+    const levelInfo = getWBGTLevel(wbgtData.wbgt)
+    const updateTime = formatJapaneseTime(wbgtData.timestamp)
+    shareDescription = `【${levelInfo.label}】${locationInfo.name} 暑さ指数${wbgtData.wbgt}°C (${updateTime}更新) - 熱中症予防情報`
+  }
   
   return {
     title: `${locationInfo.name}の暑さ指数 - 熱中症予防情報`,
@@ -118,23 +119,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     manifest: `/api/manifest/${locationCode}`,
     openGraph: {
       title: `${locationInfo.name}の暑さ指数`,
-      description: `現在の暑さ指数とともに熱中症予防情報をお届けします`,
-      url: `https://your-domain.com/wbgt/${locationCode}`,
+      description: shareDescription,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com'}/wbgt/${locationCode}`,
       type: 'website',
-      images: ogImageUrl ? [
+      images: [
         {
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: `${locationInfo.name}の暑さ指数`,
+          alt: '暑さ指数チェッカー - 全国840地点対応',
         }
-      ] : undefined,
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${locationInfo.name}の暑さ指数`,
-      description: `現在の暑さ指数とともに熱中症予防情報をお届けします`,
-      images: ogImageUrl ? [ogImageUrl] : undefined,
+      description: shareDescription,
+      images: [ogImageUrl],
     }
   }
 }
@@ -163,122 +164,24 @@ export default async function WBGTLocationPage({ params }: PageProps) {
   const levelInfo = getWBGTLevel(wbgtData.wbgt)
 
   return (
-    <AutoRefreshWrapper lastUpdated={formatJapaneseTime(wbgtData.timestamp)}>
-      <div className="min-h-screen bg-gray-50">
-        <WeatherReportStructuredData
-          locationCode={locationCode}
-          locationName={wbgtData.locationName}
-          prefecture={wbgtData.prefecture}
-          wbgt={wbgtData.wbgt}
-          temperature={wbgtData.temperature}
-          humidity={wbgtData.humidity}
-          level={levelInfo}
-          timestamp={wbgtData.timestamp}
-        />
-        
-        {/* ローディング解除 */}
-        <LoadingManager />
-        
-        {/* ヘッダー */}
-        <NavigationHeader showBackButton={true} />
-
-      {/* メインコンテンツ */}
-      <main className="max-w-6xl mx-auto px-4 py-6 space-y-8">
-        {/* お気に入りボタン（固定位置） */}
-        <div className="fixed top-20 right-4 z-50 md:top-24 md:right-8">
-          <FavoriteButton
-            locationCode={locationCode}
-            locationName={wbgtData.locationName}
-            prefecture={wbgtData.prefecture}
-            size="lg"
-            className="bg-white shadow-lg hover:shadow-xl"
-          />
-        </div>
-
-        {/* メインビジュアライゼーション */}
-        <WBGTVisualization
-          location={wbgtData.locationName}
-          prefecture={wbgtData.prefecture}
-          wbgt={wbgtData.wbgt}
-          temperature={wbgtData.temperature}
-          humidity={wbgtData.humidity}
-          updateTime={wbgtData.timestamp}
-        />
-
-        {/* 共有ボタンエリア */}
-        <ShareButtons
-          location={wbgtData.locationName}
-          wbgt={wbgtData.wbgt}
-          pageUrl={pageUrl}
-          qrCodeUrl={pageUrl}
-        />
-
-        {/* 運動時対処・活動場所セレクター */}
-        <ActivityGuideSelector
-          regionCode={getRegionByPrefectureCode(locationCode.slice(0, 2))}
-          prefectureCode={locationCode.slice(0, 2)}
-          pointCode={locationCode}
-          currentWBGTLevel={levelInfo.level}
-        />
-
-        {/* 詳細予報テーブル（21時点） */}
-        <div data-forecast-section>
-          <DetailedForecastTable
-            location={wbgtData.locationName}
-            prefecture={wbgtData.prefecture}
-            updateTime={wbgtData.forecastUpdateTime ? formatForecastUpdateTime(wbgtData.forecastUpdateTime) : formatJapaneseTime(wbgtData.timestamp)}
-            forecasts={wbgtData.forecast}
-          />
-        </div>
-
-        {/* もっと詳しく */}
-        <div className="bg-white rounded-2xl shadow-lg p-6">
-          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-            <Info className="w-6 h-6" />
-            もっと詳しく
-          </h2>
-          <p className="text-gray-700 leading-relaxed">
-            当サイトのデータは、環境省が提供する「
-            <a href="https://www.wbgt.env.go.jp/sp/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
-              熱中症予防情報サイト
-            </a>
-            」を利用して表示しています。
-            <br />
-            暑さ指数について詳しい情報をご覧になる場合は
-            <a href="https://www.wbgt.env.go.jp/sp/wbgt.php" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
-              こちら
-            </a>
-          </p>
-        </div>
-
-        {/* QRコード */}
-        <QRCodeSection 
-          pageUrl={pageUrl}
-          locationName={wbgtData.locationName}
-          prefecture={wbgtData.prefecture}
-        />
-      </main>
-
-      {/* スクロールガイド */}
-      <ScrollGuide hideThreshold={200} />
-
-      {/* フッター */}
-      <footer className="bg-gray-800 text-white py-8 mt-12">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-sm">
-            <a href="/about" className="hover:text-blue-400">利用規約</a>
-            <span className="mx-2">｜</span>
-            データ提供：
-            <a href="https://www.wbgt.env.go.jp/sp/" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">環境省</a>
-            ,
-            <a href="https://www.jma.go.jp/jma/index.html" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">気象庁</a>
-            <br />
-            開発：一橋大学大学院ソーシャル・データサイエンス研究科　
-            <a href="https://x.com/masakick" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">山辺真幸</a>
-          </p>
-        </div>
-      </footer>
-    </div>
-    </AutoRefreshWrapper>
+    <>
+      <WeatherReportStructuredData
+        locationCode={locationCode}
+        locationName={wbgtData.locationName}
+        prefecture={wbgtData.prefecture}
+        wbgt={wbgtData.wbgt}
+        temperature={wbgtData.temperature}
+        humidity={wbgtData.humidity}
+        level={levelInfo}
+        timestamp={wbgtData.timestamp}
+      />
+      
+      <WBGTLocationPageClient
+        locationCode={locationCode}
+        wbgtData={wbgtData}
+        levelInfo={levelInfo}
+        pageUrl={pageUrl}
+      />
+    </>
   )
 }

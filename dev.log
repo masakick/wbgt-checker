@@ -1,0 +1,417 @@
+
+> wbgt-app@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.3.4
+   - Local:        http://localhost:3000
+   - Network:      http://10.120.1.154:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1192ms
+ ✓ Compiled /api/og in 475ms (517 modules)
+ ⨯ [Error: failed to pipe response] {
+  [cause]: Error: Expected <div> to have explicit "display: flex" or "display: none" if it has more than one child node.
+      at $t.next (<anonymous>)
+}
+ ⨯ [Error: failed to pipe response] {
+  [cause]: Error: Expected <div> to have explicit "display: flex" or "display: none" if it has more than one child node.
+      at $t.next (<anonymous>)
+}
+ HEAD /api/og 500 in 1061ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 567ms (623 modules)
+ ✓ Compiled in 10ms
+ ✓ Compiled in 207ms (579 modules)
+ ✓ Compiled /middleware in 122ms (154 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 963ms (1058 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /og-image.png 404 in 1143ms
+ ✓ Compiled /sitemap.xml in 97ms (1066 modules)
+ GET /sitemap.xml 200 in 180ms
+ ✓ Compiled / in 241ms (1227 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET / 200 in 424ms
+ ✓ Compiled /wbgt/[locationCode] in 199ms (1401 modules)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ ⨯ Error [TypeError]: formatJapaneseTime is not a function
+    at Module.generateMetadata (webpack-internal:///(rsc)/./src/app/wbgt/%5BlocationCode%5D/page.tsx:129:28)
+    at JSON.parse (<anonymous>) {
+  environmentName: 'Server',
+  digest: '1675653264'
+}
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/44132 200 in 2489ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ ⨯ Error [TypeError]: formatJapaneseTime is not a function
+    at Module.generateMetadata (webpack-internal:///(rsc)/./src/app/wbgt/%5BlocationCode%5D/page.tsx:129:28)
+    at JSON.parse (<anonymous>) {
+  environmentName: 'Server',
+  digest: '1675653264'
+}
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/62078 200 in 1165ms
+ ✓ Compiled in 70ms (682 modules)
+ ✓ Compiled in 200ms (1415 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /og-image.png 404 in 83ms
+ GET /sitemap.xml 200 in 15ms
+ GET / 200 in 97ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/44132 200 in 1352ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/62078 200 in 1082ms
+ ✓ Compiled in 75ms (682 modules)
+ ✓ Compiled in 251ms (679 modules)
+ ✓ Compiled in 129ms (679 modules)
+ GET / 200 in 52ms
+ GET / 200 in 46ms
+ GET / 200 in 53ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/44132 200 in 1578ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/44132 200 in 920ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/44132 200 in 852ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/62078 200 in 2566ms
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/62078 200 in 1881ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/62078 200 in 2147ms
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/11001 200 in 1369ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/11001 200 in 1633ms
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/11001 200 in 1202ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/83216 200 in 1053ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/83216 200 in 942ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/83216 200 in 948ms
+ ✓ Compiled /about in 272ms (1399 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /about 200 in 424ms
+ GET /about 200 in 27ms
+ GET /about 200 in 28ms
+ ✓ Compiled /sitemap.xml in 70ms (739 modules)
+ GET /sitemap.xml 200 in 134ms
+ GET /sitemap.xml 200 in 5ms
+ GET /sitemap.xml 200 in 4ms
+ ✓ Compiled /api/manifest/[locationCode] in 229ms (1407 modules)
+ GET /api/manifest/44132 200 in 533ms
+ GET /api/manifest/44132 200 in 12ms
+ GET /api/manifest/44132 200 in 5ms
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET / 200 in 149ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/44132 200 in 1353ms
+ ✓ Compiled in 72ms (680 modules)
+ ✓ Compiled in 98ms (680 modules)
+ GET / 200 in 46ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/44132 200 in 1302ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/62078 200 in 1032ms
+ ✓ Compiled in 78ms (680 modules)
+ ✓ Compiled in 144ms (680 modules)
+ ✓ Compiled in 80ms (680 modules)
+ ✓ Compiled in 321ms (875 modules)
+ ✓ Compiled in 90ms (680 modules)
+ ⨯ ./src/lib/data-fetcher.ts:5:1
+Module not found: Can't resolve 'fs/promises'
+  3 |  */
+  4 |
+> 5 | import { readFile } from 'fs/promises'
+    | ^
+  6 | import { join } from 'path'
+  7 | import { WBGTData, getWBGTLevel } from './data-processor'
+  8 | // Lazy load large data sets to reduce initial bundle size
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./src/app/api/health/route.ts
+./node_modules/next/dist/build/webpack/loaders/next-edge-app-route-loader/index.js?absolutePagePath=%2FUsers%2Fmasaki%2FDocuments%2Fproject%2Fatsusajp_2025%2Fwbgt-app%2Fsrc%2Fapp%2Fapi%2Fhealth%2Froute.ts&page=%2Fapi%2Fhealth%2Froute&appDirLoader=bmV4dC1hcHAtbG9hZGVyP25hbWU9YXBwJTJGYXBpJTJGaGVhbHRoJTJGcm91dGUmcGFnZT0lMkZhcGklMkZoZWFsdGglMkZyb3V0ZSZhcHBQYXRocz0mcGFnZVBhdGg9cHJpdmF0ZS1uZXh0LWFwcC1kaXIlMkZhcGklMkZoZWFsdGglMkZyb3V0ZS50cyZhcHBEaXI9JTJGVXNlcnMlMkZtYXNha2klMkZEb2N1bWVudHMlMkZwcm9qZWN0JTJGYXRzdXNhanBfMjAyNSUyRndiZ3QtYXBwJTJGc3JjJTJGYXBwJnBhZ2VFeHRlbnNpb25zPXRzeCZwYWdlRXh0ZW5zaW9ucz10cyZwYWdlRXh0ZW5zaW9ucz1qc3gmcGFnZUV4dGVuc2lvbnM9anMmcm9vdERpcj0lMkZVc2VycyUyRm1hc2FraSUyRkRvY3VtZW50cyUyRnByb2plY3QlMkZhdHN1c2FqcF8yMDI1JTJGd2JndC1hcHAmaXNEZXY9dHJ1ZSZ0c2NvbmZpZ1BhdGg9dHNjb25maWcuanNvbiZiYXNlUGF0aD0mYXNzZXRQcmVmaXg9Jm5leHRDb25maWdPdXRwdXQ9JnByZWZlcnJlZFJlZ2lvbj0mbWlkZGxld2FyZUNvbmZpZz1lMzAlM0Qh&nextConfig=eyJlbnYiOnt9LCJ3ZWJwYWNrIjpudWxsLCJlc2xpbnQiOnsiaWdub3JlRHVyaW5nQnVpbGRzIjpmYWxzZX0sInR5cGVzY3JpcHQiOnsiaWdub3JlQnVpbGRFcnJvcnMiOmZhbHNlLCJ0c2NvbmZpZ1BhdGgiOiJ0c2NvbmZpZy5qc29uIn0sImRpc3REaXIiOiIubmV4dCIsImNsZWFuRGlzdERpciI6dHJ1ZSwiYXNzZXRQcmVmaXgiOiIiLCJjYWNoZU1heE1lbW9yeVNpemUiOjUyNDI4ODAwLCJjb25maWdPcmlnaW4iOiJuZXh0LmNvbmZpZy5qcyIsInVzZUZpbGVTeXN0ZW1QdWJsaWNSb3V0ZXMiOnRydWUsImdlbmVyYXRlRXRhZ3MiOnRydWUsInBhZ2VFeHRlbnNpb25zIjpbInRzeCIsInRzIiwianN4IiwianMiXSwicG93ZXJlZEJ5SGVhZGVyIjp0cnVlLCJjb21wcmVzcyI6dHJ1ZSwiaW1hZ2VzIjp7ImRldmljZVNpemVzIjpbNjQwLDc1MCw4MjgsMTA4MCwxMjAwLDE5MjAsMjA0OCwzODQwXSwiaW1hZ2VTaXplcyI6WzE2LDMyLDQ4LDY0LDk2LDEyOCwyNTYsMzg0XSwicGF0aCI6Ii9fbmV4dC9pbWFnZSIsImxvYWRlciI6ImRlZmF1bHQiLCJsb2FkZXJGaWxlIjoiIiwiZG9tYWlucyI6W10sImRpc2FibGVTdGF0aWNJbWFnZXMiOmZhbHNlLCJtaW5pbXVtQ2FjaGVUVEwiOjYwLCJmb3JtYXRzIjpbImltYWdlL3dlYnAiXSwiZGFuZ2Vyb3VzbHlBbGxvd1NWRyI6ZmFsc2UsImNvbnRlbnRTZWN1cml0eVBvbGljeSI6InNjcmlwdC1zcmMgJ25vbmUnOyBmcmFtZS1zcmMgJ25vbmUnOyBzYW5kYm94OyIsImNvbnRlbnREaXNwb3NpdGlvblR5cGUiOiJhdHRhY2htZW50IiwicmVtb3RlUGF0dGVybnMiOltdLCJ1bm9wdGltaXplZCI6ZmFsc2V9LCJkZXZJbmRpY2F0b3JzIjp7InBvc2l0aW9uIjoiYm90dG9tLWxlZnQifSwib25EZW1hbmRFbnRyaWVzIjp7Im1heEluYWN0aXZlQWdlIjo2MDAwMCwicGFnZXNCdWZmZXJMZW5ndGgiOjV9LCJhbXAiOnsiY2Fub25pY2FsQmFzZSI6IiJ9LCJiYXNlUGF0aCI6IiIsInNhc3NPcHRpb25zIjp7fSwidHJhaWxpbmdTbGFzaCI6ZmFsc2UsImkxOG4iOm51bGwsInByb2R1Y3Rpb25Ccm93c2VyU291cmNlTWFwcyI6ZmFsc2UsImV4Y2x1ZGVEZWZhdWx0TW9tZW50TG9jYWxlcyI6dHJ1ZSwic2VydmVyUnVudGltZUNvbmZpZyI6e30sInB1YmxpY1J1bnRpbWVDb25maWciOnt9LCJyZWFjdFByb2R1Y3Rpb25Qcm9maWxpbmciOmZhbHNlLCJyZWFjdFN0cmljdE1vZGUiOm51bGwsInJlYWN0TWF4SGVhZGVyc0xlbmd0aCI6NjAwMCwiaHR0cEFnZW50T3B0aW9ucyI6eyJrZWVwQWxpdmUiOnRydWV9LCJsb2dnaW5nIjp7fSwiZXhwaXJlVGltZSI6MzE1MzYwMDAsInN0YXRpY1BhZ2VHZW5lcmF0aW9uVGltZW91dCI6NjAsIm1vZHVsYXJpemVJbXBvcnRzIjp7IkBtdWkvaWNvbnMtbWF0ZXJpYWwiOnsidHJhbnNmb3JtIjoiQG11aS9pY29ucy1tYXRlcmlhbC97e21lbWJlcn19In0sImxvZGFzaCI6eyJ0cmFuc2Zvcm0iOiJsb2Rhc2gve3ttZW1iZXJ9fSJ9fSwib3V0cHV0RmlsZVRyYWNpbmdSb290IjoiL1VzZXJzL21hc2FraS9Eb2N1bWVudHMvcHJvamVjdC9hdHN1c2FqcF8yMDI1L3diZ3QtYXBwIiwiZXhwZXJpbWVudGFsIjp7Im5vZGVNaWRkbGV3YXJlIjpmYWxzZSwiY2FjaGVMaWZlIjp7ImRlZmF1bHQiOnsic3RhbGUiOjMwMCwicmV2YWxpZGF0ZSI6OTAwLCJleHBpcmUiOjQyOTQ5NjcyOTR9LCJzZWNvbmRzIjp7InN0YWxlIjowLCJyZXZhbGlkYXRlIjoxLCJleHBpcmUiOjYwfSwibWludXRlcyI6eyJzdGFsZSI6MzAwLCJyZXZhbGlkYXRlIjo2MCwiZXhwaXJlIjozNjAwfSwiaG91cnMiOnsic3RhbGUiOjMwMCwicmV2YWxpZGF0ZSI6MzYwMCwiZXhwaXJlIjo4NjQwMH0sImRheXMiOnsic3RhbGUiOjMwMCwicmV2YWxpZGF0ZSI6ODY0MDAsImV4cGlyZSI6NjA0ODAwfSwid2Vla3MiOnsic3RhbGUiOjMwMCwicmV2YWxpZGF0ZSI6NjA0ODAwLCJleHBpcmUiOjI1OTIwMDB9LCJtYXgiOnsic3RhbGUiOjMwMCwicmV2YWxpZGF0ZSI6MjU5MjAwMCwiZXhwaXJlIjo0Mjk0OTY3Mjk0fX0sImNhY2hlSGFuZGxlcnMiOnt9LCJjc3NDaHVua2luZyI6dHJ1ZSwibXVsdGlab25lRHJhZnRNb2RlIjpmYWxzZSwiYXBwTmF2RmFpbEhhbmRsaW5nIjpmYWxzZSwicHJlcmVuZGVyRWFybHlFeGl0Ijp0cnVlLCJzZXJ2ZXJNaW5pZmljYXRpb24iOnRydWUsInNlcnZlclNvdXJjZU1hcHMiOmZhbHNlLCJsaW5rTm9Ub3VjaFN0YXJ0IjpmYWxzZSwiY2FzZVNlbnNpdGl2ZVJvdXRlcyI6ZmFsc2UsImNsaWVudFNlZ21lbnRDYWNoZSI6ZmFsc2UsImR5bmFtaWNPbkhvdmVyIjpmYWxzZSwicHJlbG9hZEVudHJpZXNPblN0YXJ0Ijp0cnVlLCJjbGllbnRSb3V0ZXJGaWx0ZXIiOnRydWUsImNsaWVudFJvdXRlckZpbHRlclJlZGlyZWN0cyI6ZmFsc2UsImZldGNoQ2FjaGVLZXlQcmVmaXgiOiIiLCJtaWRkbGV3YXJlUHJlZmV0Y2giOiJmbGV4aWJsZSIsIm9wdGltaXN0aWNDbGllbnRDYWNoZSI6dHJ1ZSwibWFudWFsQ2xpZW50QmFzZVBhdGgiOmZhbHNlLCJjcHVzIjo3LCJtZW1vcnlCYXNlZFdvcmtlcnNDb3VudCI6ZmFsc2UsImltZ09wdENvbmN1cnJlbmN5IjpudWxsLCJpbWdPcHRUaW1lb3V0SW5TZWNvbmRzIjo3LCJpbWdPcHRNYXhJbnB1dFBpeGVscyI6MjY4NDAyNjg5LCJpbWdPcHRTZXF1ZW50aWFsUmVhZCI6bnVsbCwiaXNyRmx1c2hUb0Rpc2siOnRydWUsIndvcmtlclRocmVhZHMiOmZhbHNlLCJvcHRpbWl6ZUNzcyI6ZmFsc2UsIm5leHRTY3JpcHRXb3JrZXJzIjpmYWxzZSwic2Nyb2xsUmVzdG9yYXRpb24iOmZhbHNlLCJleHRlcm5hbERpciI6ZmFsc2UsImRpc2FibGVPcHRpbWl6ZWRMb2FkaW5nIjpmYWxzZSwiZ3ppcFNpemUiOnRydWUsImNyYUNvbXBhdCI6ZmFsc2UsImVzbUV4dGVybmFscyI6dHJ1ZSwiZnVsbHlTcGVjaWZpZWQiOmZhbHNlLCJzd2NUcmFjZVByb2ZpbGluZyI6ZmFsc2UsImZvcmNlU3djVHJhbnNmb3JtcyI6ZmFsc2UsImxhcmdlUGFnZURhdGFCeXRlcyI6MTI4MDAwLCJ0eXBlZFJvdXRlcyI6ZmFsc2UsInR5cGVkRW52IjpmYWxzZSwicGFyYWxsZWxTZXJ2ZXJDb21waWxlcyI6ZmFsc2UsInBhcmFsbGVsU2VydmVyQnVpbGRUcmFjZXMiOmZhbHNlLCJwcHIiOmZhbHNlLCJhdXRoSW50ZXJydXB0cyI6ZmFsc2UsIndlYnBhY2tNZW1vcnlPcHRpbWl6YXRpb25zIjpmYWxzZSwib3B0aW1pemVTZXJ2ZXJSZWFjdCI6dHJ1ZSwidXNlRWFybHlJbXBvcnQiOmZhbHNlLCJ2aWV3VHJhbnNpdGlvbiI6ZmFsc2UsInJvdXRlckJGQ2FjaGUiOmZhbHNlLCJzdGFsZVRpbWVzIjp7ImR5bmFtaWMiOjAsInN0YXRpYyI6MzAwfSwic2VydmVyQ29tcG9uZW50c0htckNhY2hlIjp0cnVlLCJzdGF0aWNHZW5lcmF0aW9uTWF4Q29uY3VycmVuY3kiOjgsInN0YXRpY0dlbmVyYXRpb25NaW5QYWdlc1BlcldvcmtlciI6MjUsImR5bmFtaWNJTyI6ZmFsc2UsImlubGluZUNzcyI6ZmFsc2UsInVzZUNhY2hlIjpmYWxzZSwib3B0aW1pemVQYWNrYWdlSW1wb3J0cyI6WyJsdWNpZGUtcmVhY3QiLCJkYXRlLWZucyIsImxvZGFzaC1lcyIsInJhbWRhIiwiYW50ZCIsInJlYWN0LWJvb3RzdHJhcCIsImFob29rcyIsIkBhbnQtZGVzaWduL2ljb25zIiwiQGhlYWRsZXNzdWkvcmVhY3QiLCJAaGVhZGxlc3N1aS1mbG9hdC9yZWFjdCIsIkBoZXJvaWNvbnMvcmVhY3QvMjAvc29saWQiLCJAaGVyb2ljb25zL3JlYWN0LzI0L3NvbGlkIiwiQGhlcm9pY29ucy9yZWFjdC8yNC9vdXRsaW5lIiwiQHZpc3gvdmlzeCIsIkB0cmVtb3IvcmVhY3QiLCJyeGpzIiwiQG11aS9tYXRlcmlhbCIsIkBtdWkvaWNvbnMtbWF0ZXJpYWwiLCJyZWNoYXJ0cyIsInJlYWN0LXVzZSIsImVmZmVjdCIsIkBlZmZlY3Qvc2NoZW1hIiwiQGVmZmVjdC9wbGF0Zm9ybSIsIkBlZmZlY3QvcGxhdGZvcm0tbm9kZSIsIkBlZmZlY3QvcGxhdGZvcm0tYnJvd3NlciIsIkBlZmZlY3QvcGxhdGZvcm0tYnVuIiwiQGVmZmVjdC9zcWwiLCJAZWZmZWN0L3NxbC1tc3NxbCIsIkBlZmZlY3Qvc3FsLW15c3FsMiIsIkBlZmZlY3Qvc3FsLXBnIiwiQGVmZmVjdC9zcWwtc3F1bGl0ZS1ub2RlIiwiQGVmZmVjdC9zcWwtc3F1bGl0ZS1idW4iLCJAZWZmZWN0L3NxbC1zcXVsaXRlLXdhc20iLCJAZWZmZWN0L3NxbC1zcXVsaXRlLXJlYWN0LW5hdGl2ZSIsIkBlZmZlY3QvcnBjIiwiQGVmZmVjdC9ycGMtaHR0cCIsIkBlZmZlY3QvdHlwZWNsYXNzIiwiQGVmZmVjdC9leHBlcmltZW50YWwiLCJAZWZmZWN0L29wZW50ZWxlbWV0cnkiLCJAbWF0ZXJpYWwtdWkvY29yZSIsIkBtYXRlcmlhbC11aS9pY29ucyIsIkB0YWJsZXIvaWNvbnMtcmVhY3QiLCJtdWktY29yZSIsInJlYWN0LWljb25zL2FpIiwicmVhY3QtaWNvbnMvYmkiLCJyZWFjdC1pY29ucy9icyIsInJlYWN0LWljb25zL2NnIiwicmVhY3QtaWNvbnMvY2kiLCJyZWFjdC1pY29ucy9kaSIsInJlYWN0LWljb25zL2ZhIiwicmVhY3QtaWNvbnMvZmE2IiwicmVhY3QtaWNvbnMvZmMiLCJyZWFjdC1pY29ucy9maSIsInJlYWN0LWljb25zL2dpIiwicmVhY3QtaWNvbnMvZ28iLCJyZWFjdC1pY29ucy9nciIsInJlYWN0LWljb25zL2hpIiwicmVhY3QtaWNvbnMvaGkyIiwicmVhY3QtaWNvbnMvaW0iLCJyZWFjdC1pY29ucy9pbyIsInJlYWN0LWljb25zL2lvNSIsInJlYWN0LWljb25zL2xpYSIsInJlYWN0LWljb25zL2xpYiIsInJlYWN0LWljb25zL2x1IiwicmVhY3QtaWNvbnMvbWQiLCJyZWFjdC1pY29ucy9waSIsInJlYWN0LWljb25zL3JpIiwicmVhY3QtaWNvbnMvcngiLCJyZWFjdC1pY29ucy9zaSIsInJlYWN0LWljb25zL3NsIiwicmVhY3QtaWNvbnMvdGIiLCJyZWFjdC1pY29ucy90ZmkiLCJyZWFjdC1pY29ucy90aSIsInJlYWN0LWljb25zL3ZzYyIsInJlYWN0LWljb25zL3dpIl19LCJodG1sTGltaXRlZEJvdHMiOiJNZWRpYXBhcnRuZXJzLUdvb2dsZXxTbHVycHxEdWNrRHVja0JvdHxiYWlkdXNwaWRlcnx5YW5kZXh8c29nb3V8Yml0bHlib3R8dHVtYmxyfHZrU2hhcmV8cXVvcmEgbGluayBwcmV2aWV3fHJlZGRpdGJvdHxpYV9hcmNoaXZlcnxCaW5nYm90fEJpbmdQcmV2aWV3fGFwcGxlYm90fGZhY2Vib29rZXh0ZXJuYWxoaXR8ZmFjZWJvb2tjYXRhbG9nfFR3aXR0ZXJib3R8TGlua2VkSW5Cb3R8U2xhY2tib3R8RGlzY29yZGJvdHxXaGF0c0FwcHxTa3lwZVVyaVByZXZpZXd8WWV0aSIsImJ1bmRsZVBhZ2VzUm91dGVyRGVwZW5kZW5jaWVzIjpmYWxzZSwiY29uZmlnRmlsZSI6Ii9Vc2Vycy9tYXNha2kvRG9jdW1lbnRzL3Byb2plY3QvYXRzdXNhanBfMjAyNS93Ymd0LWFwcC9uZXh0LmNvbmZpZy5qcyIsImNvbmZpZ0ZpbGVOYW1lIjoibmV4dC5jb25maWcuanMiLCJ0dXJib3BhY2siOnsicm9vdCI6Ii9Vc2Vycy9tYXNha2kvRG9jdW1lbnRzL3Byb2plY3QvYXRzdXNhanBfMjAyNS93Ymd0LWFwcCJ9LCJfb3JpZ2luYWxSZWRpcmVjdHMiOlt7InNvdXJjZSI6Ii93Ymd0Lzpjb2RlKi5odG1sIiwiZGVzdGluYXRpb24iOiIvd2JndC86Y29kZSoiLCJwZXJtYW5lbnQiOnRydWV9LHsic291cmNlIjoiL3diZ3QvOmNvZGUqL2luZGV4Lmh0bWwiLCJkZXN0aW5hdGlvbiI6Ii93Ymd0Lzpjb2RlKiIsInBlcm1hbmVudCI6dHJ1ZX0seyJzb3VyY2UiOiIvaW5kZXguaHRtbCIsImRlc3RpbmF0aW9uIjoiLyIsInBlcm1hbmVudCI6dHJ1ZX1dfQ%3D%3D&preferredRegion=&middlewareConfig=e30%3D&cacheHandlers=%7B%7D!
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 267ms (1140 modules)
+ ✓ Compiled /_error in 193ms (1183 modules)
+ GET /api/health 500 in 1884ms
+ ✓ Compiled in 140ms (1057 modules)
+ ✓ Compiled in 239ms (834 modules)
+ ✓ Compiled /api/health in 50ms (373 modules)
+ GET /api/health 503 in 205ms
+ ✓ Compiled in 134ms (1053 modules)
+ GET /api/health 200 in 480ms
+ ✓ Compiled / in 96ms (591 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET / 200 in 312ms
+ ✓ Compiled /wbgt/[locationCode] in 384ms (712 modules)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/44132 200 in 2200ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/62078 200 in 970ms
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+[DATA-FETCHER] Temperature data integrated
+Fetching https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv (attempt 1/4)
+[DATA-FETCHER] Forecast data integrated
+[DATA-FETCHER] Got 841 records from current site CSV
+ GET /wbgt/11001 200 in 1232ms
+ ✓ Compiled /sitemap.xml in 134ms (732 modules)
+ GET /sitemap.xml 200 in 207ms
+ ✓ Compiled /about in 115ms (739 modules)
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+ GET /about 200 in 258ms
+ ✓ Compiled in 353ms (680 modules)
+ ✓ Compiled in 158ms (680 modules)
+ ⚠ Found a change in next.config.js. Restarting the server to apply the changes...
+   ▲ Next.js 15.3.4
+   - Local:        http://localhost:3000
+   - Network:      http://10.120.1.154:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 2.5s
+   Reload env: .env.local
+[?25h

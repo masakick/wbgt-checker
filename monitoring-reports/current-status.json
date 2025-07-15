@@ -1,0 +1,61 @@
+{
+  "timestamp": "2025-07-12T02:42:19.702Z",
+  "uptime": 5314,
+  "summary": {
+    "averageResponseTime": 647,
+    "errorRate": 0,
+    "availability": 100,
+    "criticalErrors": 0
+  },
+  "recentAlerts": [],
+  "endpointStatus": [
+    {
+      "name": "トップページ",
+      "status": "up",
+      "lastCheck": "2025-07-12T02:42:14.790Z",
+      "consecutiveFailures": 0
+    },
+    {
+      "name": "東京詳細ページ",
+      "status": "up",
+      "lastCheck": "2025-07-12T02:42:16.989Z",
+      "consecutiveFailures": 0
+    },
+    {
+      "name": "大阪詳細ページ",
+      "status": "up",
+      "lastCheck": "2025-07-12T02:42:17.957Z",
+      "consecutiveFailures": 0
+    },
+    {
+      "name": "札幌詳細ページ",
+      "status": "up",
+      "lastCheck": "2025-07-12T02:42:19.105Z",
+      "consecutiveFailures": 0
+    },
+    {
+      "name": "サイトマップ",
+      "status": "up",
+      "lastCheck": "2025-07-12T02:42:19.315Z",
+      "consecutiveFailures": 0
+    },
+    {
+      "name": "PWAマニフェスト",
+      "status": "up",
+      "lastCheck": "2025-07-12T02:42:19.318Z",
+      "consecutiveFailures": 0
+    },
+    {
+      "name": "OGP画像",
+      "status": "up",
+      "lastCheck": "2025-07-12T02:42:19.323Z",
+      "consecutiveFailures": 0
+    },
+    {
+      "name": "About ページ",
+      "status": "up",
+      "lastCheck": "2025-07-12T02:42:19.581Z",
+      "consecutiveFailures": 0
+    }
+  ]
+}

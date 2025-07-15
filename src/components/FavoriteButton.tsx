@@ -11,6 +11,8 @@ interface FavoriteButtonProps {
   prefecture: string
   className?: string
   size?: 'sm' | 'md' | 'lg'
+  hideWhenMenuOpen?: boolean
+  isMenuOpen?: boolean
 }
 
 export function FavoriteButton({ 
@@ -18,7 +20,9 @@ export function FavoriteButton({
   locationName, 
   prefecture, 
   className = '',
-  size = 'md' 
+  size = 'md',
+  hideWhenMenuOpen = false,
+  isMenuOpen = false
 }: FavoriteButtonProps) {
   const { isFavorite, toggleFavorite } = useFavorites()
   const { addToast } = useToast()
@@ -48,6 +52,11 @@ export function FavoriteButton({
     } else {
       addToast(`${locationName}をお気に入りに追加しました`, 'success')
     }
+  }
+
+  // メニューが開いている時は非表示にする
+  if (hideWhenMenuOpen && isMenuOpen) {
+    return null
   }
 
   return (

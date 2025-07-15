@@ -1,0 +1,200 @@
+{
+  "environment": {
+    "baseUrl": "http://localhost:3000",
+    "timestamp": "2025-07-12T02:31:05.743Z",
+    "userAgent": "Node.js Performance Test"
+  },
+  "tests": {
+    "pages": [
+      {
+        "name": "トップページ",
+        "url": "http://localhost:3000/",
+        "iterations": 3,
+        "successCount": 3,
+        "avgResponseTime": 66,
+        "minResponseTime": 50,
+        "maxResponseTime": 77,
+        "size": null,
+        "contentType": "text/html; charset=utf-8",
+        "errors": []
+      },
+      {
+        "name": "東京詳細ページ",
+        "url": "http://localhost:3000/wbgt/44132",
+        "iterations": 3,
+        "successCount": 3,
+        "avgResponseTime": 1074,
+        "minResponseTime": 853,
+        "maxResponseTime": 1446,
+        "size": null,
+        "contentType": "text/html; charset=utf-8",
+        "errors": []
+      },
+      {
+        "name": "大阪詳細ページ",
+        "url": "http://localhost:3000/wbgt/62078",
+        "iterations": 3,
+        "successCount": 3,
+        "avgResponseTime": 1032,
+        "minResponseTime": 654,
+        "maxResponseTime": 1415,
+        "size": null,
+        "contentType": "text/html; charset=utf-8",
+        "errors": []
+      },
+      {
+        "name": "札幌詳細ページ",
+        "url": "http://localhost:3000/wbgt/11001",
+        "iterations": 3,
+        "successCount": 3,
+        "avgResponseTime": 1112,
+        "minResponseTime": 749,
+        "maxResponseTime": 1387,
+        "size": null,
+        "contentType": "text/html; charset=utf-8",
+        "errors": []
+      },
+      {
+        "name": "福岡詳細ページ",
+        "url": "http://localhost:3000/wbgt/83216",
+        "iterations": 3,
+        "successCount": 3,
+        "avgResponseTime": 927,
+        "minResponseTime": 881,
+        "maxResponseTime": 999,
+        "size": null,
+        "contentType": "text/html; charset=utf-8",
+        "errors": []
+      },
+      {
+        "name": "About ページ",
+        "url": "http://localhost:3000/about",
+        "iterations": 3,
+        "successCount": 3,
+        "avgResponseTime": 160,
+        "minResponseTime": 25,
+        "maxResponseTime": 430,
+        "size": null,
+        "contentType": "text/html; charset=utf-8",
+        "errors": []
+      }
+    ],
+    "api": [
+      {
+        "name": "サイトマップ",
+        "url": "http://localhost:3000/sitemap.xml",
+        "iterations": 3,
+        "successCount": 3,
+        "avgResponseTime": 53,
+        "minResponseTime": 9,
+        "maxResponseTime": 138,
+        "size": null,
+        "contentType": "application/xml",
+        "errors": []
+      },
+      {
+        "name": "PWA マニフェスト",
+        "url": "http://localhost:3000/manifest.json",
+        "iterations": 3,
+        "successCount": 3,
+        "avgResponseTime": 5,
+        "minResponseTime": 4,
+        "maxResponseTime": 6,
+        "size": null,
+        "contentType": "application/json; charset=UTF-8",
+        "errors": []
+      },
+      {
+        "name": "動的マニフェスト（東京）",
+        "url": "http://localhost:3000/api/manifest/44132",
+        "iterations": 3,
+        "successCount": 3,
+        "avgResponseTime": 185,
+        "minResponseTime": 6,
+        "maxResponseTime": 535,
+        "size": null,
+        "contentType": "application/json",
+        "errors": []
+      }
+    ],
+    "resources": [
+      {
+        "name": "OGP画像",
+        "url": "http://localhost:3000/og-image.svg",
+        "iterations": 2,
+        "successCount": 2,
+        "avgResponseTime": 7,
+        "minResponseTime": 4,
+        "maxResponseTime": 10,
+        "size": null,
+        "contentType": "image/svg+xml",
+        "errors": []
+      },
+      {
+        "name": "PWAアイコン (192x192)",
+        "url": "http://localhost:3000/icons/icon-192x192.png",
+        "iterations": 2,
+        "successCount": 2,
+        "avgResponseTime": 4,
+        "minResponseTime": 3,
+        "maxResponseTime": 4,
+        "size": 13616,
+        "contentType": "image/png",
+        "errors": []
+      },
+      {
+        "name": "PWAアイコン (512x512)",
+        "url": "http://localhost:3000/icons/icon-512x512.png",
+        "iterations": 2,
+        "successCount": 2,
+        "avgResponseTime": 3,
+        "minResponseTime": 2,
+        "maxResponseTime": 4,
+        "size": 47658,
+        "contentType": "image/png",
+        "errors": []
+      },
+      {
+        "name": "Apple Touch Icon",
+        "url": "http://localhost:3000/apple-touch-icon.png",
+        "iterations": 2,
+        "successCount": 2,
+        "avgResponseTime": 4,
+        "minResponseTime": 4,
+        "maxResponseTime": 4,
+        "size": 12448,
+        "contentType": "image/png",
+        "errors": []
+      }
+    ]
+  },
+  "summary": {
+    "totalTests": 13,
+    "averageResponseTime": 356,
+    "slowestPage": {
+      "name": "札幌詳細ページ",
+      "url": "http://localhost:3000/wbgt/11001",
+      "iterations": 3,
+      "successCount": 3,
+      "avgResponseTime": 1112,
+      "minResponseTime": 749,
+      "maxResponseTime": 1387,
+      "size": null,
+      "contentType": "text/html; charset=utf-8",
+      "errors": []
+    },
+    "fastestPage": {
+      "name": "PWAアイコン (512x512)",
+      "url": "http://localhost:3000/icons/icon-512x512.png",
+      "iterations": 2,
+      "successCount": 2,
+      "avgResponseTime": 3,
+      "minResponseTime": 2,
+      "maxResponseTime": 4,
+      "size": 47658,
+      "contentType": "image/png",
+      "errors": []
+    },
+    "errors": []
+  }
+}

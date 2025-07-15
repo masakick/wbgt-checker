@@ -81,6 +81,10 @@ export default function HomePage() {
       <footer className="bg-gray-800 text-white py-8 mt-12">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-sm">
+            <a href="/about" className="hover:text-blue-400">利用規約</a>
+            <span className="mx-2">｜</span>
+            <a href="/news" className="hover:text-blue-400">お知らせ</a>
+            <span className="mx-2">｜</span>
             データ提供：
             <a href="https://www.wbgt.env.go.jp/sp/" className="hover:text-blue-400" target="_blank" rel="noopener noreferrer">
               環境省

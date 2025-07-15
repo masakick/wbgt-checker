@@ -11,10 +11,12 @@ import { FavoritesList } from './FavoritesList'
 interface NavigationHeaderProps {
   showBackButton?: boolean
   onDataReload?: () => void
+  onMenuStateChange?: (isOpen: boolean) => void
 }
 
-export function NavigationHeader({ showBackButton = false, onDataReload }: NavigationHeaderProps) {
+export function NavigationHeader({ showBackButton = false, onDataReload, onMenuStateChange }: NavigationHeaderProps) {
   const [activeModal, setActiveModal] = useState<'search' | 'region' | 'favorites' | null>(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const regionModalRef = useRef<HTMLDivElement>(null)
 
   const handleBack = () => {
@@ -31,12 +33,21 @@ export function NavigationHeader({ showBackButton = false, onDataReload }: Navig
     }
   }
 
+  const handleMenuStateChange = (isOpen: boolean) => {
+    setIsMenuOpen(isOpen)
+    const finalState = isOpen || activeModal !== null
+    onMenuStateChange?.(finalState)
+  }
+
   const openModal = (type: 'search' | 'region' | 'favorites') => {
     setActiveModal(type)
+    onMenuStateChange?.(true)
   }
 
   const closeModal = () => {
     setActiveModal(null)
+    const finalState = isMenuOpen
+    onMenuStateChange?.(finalState)
   }
 
   // 地方別選択モーダルが開いた時、地方選択部分にスクロール
@@ -78,6 +89,7 @@ export function NavigationHeader({ showBackButton = false, onDataReload }: Navig
               onSearchClick={() => openModal('search')}
               onRegionClick={() => openModal('region')}
               onFavoritesClick={() => openModal('favorites')}
+              onMenuStateChange={handleMenuStateChange}
             />
           </div>
         </div>

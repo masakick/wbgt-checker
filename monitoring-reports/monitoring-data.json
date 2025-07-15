@@ -1,0 +1,168 @@
+{
+  "startTime": "2025-07-12T02:42:14.388Z",
+  "totalChecks": 1,
+  "uptime": 0,
+  "downtime": 0,
+  "endpoints": {
+    "トップページ": {
+      "url": "http://localhost:3000/",
+      "critical": true,
+      "checks": 1,
+      "successes": 1,
+      "failures": 0,
+      "consecutiveFailures": 0,
+      "avgResponseTime": 386,
+      "responseTimes": [
+        386
+      ],
+      "lastCheck": "2025-07-12T02:42:14.790Z",
+      "lastError": null,
+      "status": "up"
+    },
+    "東京詳細ページ": {
+      "url": "http://localhost:3000/wbgt/44132",
+      "critical": true,
+      "checks": 1,
+      "successes": 1,
+      "failures": 0,
+      "consecutiveFailures": 0,
+      "avgResponseTime": 2199,
+      "responseTimes": [
+        2199
+      ],
+      "lastCheck": "2025-07-12T02:42:16.989Z",
+      "lastError": null,
+      "status": "up"
+    },
+    "大阪詳細ページ": {
+      "url": "http://localhost:3000/wbgt/62078",
+      "critical": true,
+      "checks": 1,
+      "successes": 1,
+      "failures": 0,
+      "consecutiveFailures": 0,
+      "avgResponseTime": 968,
+      "responseTimes": [
+        968
+      ],
+      "lastCheck": "2025-07-12T02:42:17.957Z",
+      "lastError": null,
+      "status": "up"
+    },
+    "札幌詳細ページ": {
+      "url": "http://localhost:3000/wbgt/11001",
+      "critical": false,
+      "checks": 1,
+      "successes": 1,
+      "failures": 0,
+      "consecutiveFailures": 0,
+      "avgResponseTime": 1147,
+      "responseTimes": [
+        1147
+      ],
+      "lastCheck": "2025-07-12T02:42:19.105Z",
+      "lastError": null,
+      "status": "up"
+    },
+    "サイトマップ": {
+      "url": "http://localhost:3000/sitemap.xml",
+      "critical": false,
+      "checks": 1,
+      "successes": 1,
+      "failures": 0,
+      "consecutiveFailures": 0,
+      "avgResponseTime": 210,
+      "responseTimes": [
+        210
+      ],
+      "lastCheck": "2025-07-12T02:42:19.315Z",
+      "lastError": null,
+      "status": "up"
+    },
+    "PWAマニフェスト": {
+      "url": "http://localhost:3000/manifest.json",
+      "critical": false,
+      "checks": 1,
+      "successes": 1,
+      "failures": 0,
+      "consecutiveFailures": 0,
+      "avgResponseTime": 3,
+      "responseTimes": [
+        3
+      ],
+      "lastCheck": "2025-07-12T02:42:19.318Z",
+      "lastError": null,
+      "status": "up"
+    },
+    "OGP画像": {
+      "url": "http://localhost:3000/og-image.svg",
+      "critical": false,
+      "checks": 1,
+      "successes": 1,
+      "failures": 0,
+      "consecutiveFailures": 0,
+      "avgResponseTime": 5,
+      "responseTimes": [
+        5
+      ],
+      "lastCheck": "2025-07-12T02:42:19.323Z",
+      "lastError": null,
+      "status": "up"
+    },
+    "About ページ": {
+      "url": "http://localhost:3000/about",
+      "critical": false,
+      "checks": 1,
+      "successes": 1,
+      "failures": 0,
+      "consecutiveFailures": 0,
+      "avgResponseTime": 258,
+      "responseTimes": [
+        258
+      ],
+      "lastCheck": "2025-07-12T02:42:19.581Z",
+      "lastError": null,
+      "status": "up"
+    }
+  },
+  "dataSources": {
+    "WBGT データ": {
+      "url": "https://masaki-yamabe.sakura.ne.jp/atsusa/data/wbgt.csv",
+      "checks": 1,
+      "successes": 1,
+      "failures": 0,
+      "avgResponseTime": 57,
+      "lastCheck": "2025-07-12T02:42:19.638Z",
+      "lastError": null,
+      "status": "up"
+    },
+    "気温データ": {
+      "url": "https://masaki-yamabe.sakura.ne.jp/atsusa/data/temp.json",
+      "checks": 1,
+      "successes": 1,
+      "failures": 0,
+      "avgResponseTime": 32,
+      "lastCheck": "2025-07-12T02:42:19.670Z",
+      "lastError": null,
+      "status": "up"
+    },
+    "予報データ": {
+      "url": "https://masaki-yamabe.sakura.ne.jp/atsusa/data/forecast.csv",
+      "checks": 1,
+      "successes": 1,
+      "failures": 0,
+      "avgResponseTime": 30,
+      "lastCheck": "2025-07-12T02:42:19.700Z",
+      "lastError": null,
+      "status": "up"
+    }
+  },
+  "alerts": [],
+  "dailyReports": [],
+  "summary": {
+    "averageResponseTime": 647,
+    "errorRate": 0,
+    "availability": 100,
+    "criticalErrors": 0
+  }
+}

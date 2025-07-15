@@ -31,12 +31,21 @@ export const metadata: Metadata = {
     title: "暑さ指数チェッカー",
     description: "全国840地点の暑さ指数（WBGT）をリアルタイムで確認できる熱中症予防アプリ",
     siteName: "暑さ指数チェッカー",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "暑さ指数チェッカー - 全国840地点対応",
+      }
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "暑さ指数チェッカー",
     description: "全国840地点の暑さ指数（WBGT）をリアルタイムで確認",
     creator: "@masakick",
+    images: ["/og-image.svg"],
   },
   manifest: "/manifest.json",
   icons: {

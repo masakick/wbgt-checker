@@ -1,20 +1,28 @@
 "use client"
 
 import { useState } from 'react'
-import { Menu, X, Search, MapPin, Heart, Info, ArrowUp, MessageSquare } from 'lucide-react'
+import { Menu, X, Search, MapPin, Heart, Info, ArrowUp, MessageSquare, Bell } from 'lucide-react'
 import Link from 'next/link'
 
 interface HeaderMenuProps {
   onSearchClick?: () => void
   onRegionClick?: () => void
   onFavoritesClick?: () => void
+  onMenuStateChange?: (isOpen: boolean) => void
 }
 
-export function HeaderMenu({ onSearchClick, onRegionClick, onFavoritesClick }: HeaderMenuProps) {
+export function HeaderMenu({ onSearchClick, onRegionClick, onFavoritesClick, onMenuStateChange }: HeaderMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
 
-  const toggleMenu = () => setIsOpen(!isOpen)
-  const closeMenu = () => setIsOpen(false)
+  const toggleMenu = () => {
+    const newState = !isOpen
+    setIsOpen(newState)
+    onMenuStateChange?.(newState)
+  }
+  const closeMenu = () => {
+    setIsOpen(false)
+    onMenuStateChange?.(false)
+  }
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -104,6 +112,16 @@ export function HeaderMenu({ onSearchClick, onRegionClick, onFavoritesClick }: H
             >
               <Info className="w-5 h-5" />
               <span className="font-medium">このサイトについて</span>
+            </Link>
+
+            {/* 運営からのお知らせ */}
+            <Link
+              href="/news"
+              onClick={closeMenu}
+              className="w-full flex items-center gap-3 px-4 py-3 text-left text-gray-700 hover:bg-yellow-50 hover:text-yellow-700 rounded-lg transition-colors"
+            >
+              <Bell className="w-5 h-5" />
+              <span className="font-medium">運営からのお知らせ</span>
             </Link>
 
             {/* お問い合わせ */}

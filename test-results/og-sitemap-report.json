@@ -1,0 +1,23 @@
+{
+  "ogp": {
+    "success": 1,
+    "failed": 0,
+    "tests": [
+      {
+        "name": "SVG OGP画像",
+        "status": "success",
+        "details": {
+          "contentType": "image/svg+xml",
+          "size": null,
+          "responseTime": 15
+        }
+      }
+    ]
+  },
+  "sitemap": {
+    "success": true,
+    "totalUrls": 842,
+    "hasDynamicPages": true,
+    "errors": []
+  }
+}

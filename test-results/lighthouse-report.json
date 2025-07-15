@@ -1,0 +1,151 @@
+{
+  "timestamp": "2025-07-12T02:32:30.866Z",
+  "baseUrl": "http://localhost:3000",
+  "pages": [
+    {
+      "pageName": "東京詳細ページ",
+      "url": "http://localhost:3000/wbgt/44132",
+      "overallScore": 97,
+      "grade": "A",
+      "status": "Good",
+      "metrics": {
+        "LCP": 1514.3999999999999,
+        "FCP": 1009.6,
+        "TTI": 1893,
+        "TBT": 78.6,
+        "responseTime": 1262,
+        "pageSize": 0
+      },
+      "scores": {
+        "LCP": 100,
+        "FCP": 100,
+        "TTI": 100,
+        "TBT": 100,
+        "responseTime": 86.9,
+        "pageSize": 100
+      },
+      "contentType": "text/html; charset=utf-8",
+      "success": true
+    },
+    {
+      "pageName": "トップページ",
+      "url": "http://localhost:3000/",
+      "overallScore": 100,
+      "grade": "A",
+      "status": "Good",
+      "metrics": {
+        "LCP": 84,
+        "FCP": 56,
+        "TTI": 105,
+        "TBT": 0,
+        "responseTime": 70,
+        "pageSize": 0
+      },
+      "scores": {
+        "LCP": 100,
+        "FCP": 100,
+        "TTI": 100,
+        "TBT": 100,
+        "responseTime": 100,
+        "pageSize": 100
+      },
+      "contentType": "text/html; charset=utf-8",
+      "success": true
+    },
+    {
+      "pageName": "大阪詳細ページ",
+      "url": "http://localhost:3000/wbgt/62078",
+      "overallScore": 100,
+      "grade": "A",
+      "status": "Good",
+      "metrics": {
+        "LCP": 1204.8,
+        "FCP": 803.2,
+        "TTI": 1506,
+        "TBT": 1.2,
+        "responseTime": 1004,
+        "pageSize": 0
+      },
+      "scores": {
+        "LCP": 100,
+        "FCP": 100,
+        "TTI": 100,
+        "TBT": 100,
+        "responseTime": 99.8,
+        "pageSize": 100
+      },
+      "contentType": "text/html; charset=utf-8",
+      "success": true
+    }
+  ],
+  "bundleAnalysis": {
+    "totalSize": 0,
+    "results": [
+      {
+        "file": "/_next/static/chunks/main.js",
+        "size": "0.00 KB"
+      },
+      {
+        "file": "/_next/static/chunks/pages/_app.js",
+        "size": "0.00 KB"
+      },
+      {
+        "file": "/_next/static/chunks/webpack.js",
+        "size": "0.00 KB"
+      }
+    ]
+  },
+  "summary": {
+    "averageScore": 99,
+    "bestPage": {
+      "pageName": "トップページ",
+      "url": "http://localhost:3000/",
+      "overallScore": 100,
+      "grade": "A",
+      "status": "Good",
+      "metrics": {
+        "LCP": 84,
+        "FCP": 56,
+        "TTI": 105,
+        "TBT": 0,
+        "responseTime": 70,
+        "pageSize": 0
+      },
+      "scores": {
+        "LCP": 100,
+        "FCP": 100,
+        "TTI": 100,
+        "TBT": 100,
+        "responseTime": 100,
+        "pageSize": 100
+      },
+      "contentType": "text/html; charset=utf-8",
+      "success": true
+    },
+    "worstPage": {
+      "pageName": "東京詳細ページ",
+      "url": "http://localhost:3000/wbgt/44132",
+      "overallScore": 97,
+      "grade": "A",
+      "status": "Good",
+      "metrics": {
+        "LCP": 1514.3999999999999,
+        "FCP": 1009.6,
+        "TTI": 1893,
+        "TBT": 78.6,
+        "responseTime": 1262,
+        "pageSize": 0
+      },
+      "scores": {
+        "LCP": 100,
+        "FCP": 100,
+        "TTI": 100,
+        "TBT": 100,
+        "responseTime": 86.9,
+        "pageSize": 100
+      },
+      "contentType": "text/html; charset=utf-8",
+      "success": true
+    }
+  }
+}

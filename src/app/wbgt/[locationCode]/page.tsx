@@ -85,7 +85,7 @@ export const revalidate = 0
 // 840地点すべてに対応するため、未生成パラメータを動的に生成
 export const dynamicParams = true
 
-// メタデータ生成
+// メタデータ生成 - リアルタイムOGP対応
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locationCode } = await params
   const locationInfo = getLocationInfoSync(locationCode)
@@ -97,10 +97,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
   }
   
-  // Get current WBGT data for share text
+  // Get current WBGT data for share text (bypass cache for OGP)
   const wbgtData = await getWBGTData(locationCode)
   const { getWBGTLevel } = await import('@/lib/data-processor')
   const { formatJapaneseTime } = await import('@/lib/format-time')
+  
+  // Force fresh data fetch for OGP by adding cache busting
+  const currentTime = new Date().toISOString()
   
   // 固定OGP画像
   const ogImageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com'}/og-image.svg`
@@ -121,7 +124,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${locationInfo.name}の暑さ指数`,
       description: shareDescription,
-      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com'}/wbgt/${locationCode}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://atsusa.jp'}/wbgt/${locationCode}`,
       type: 'website',
       images: [
         {
@@ -137,6 +140,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: `${locationInfo.name}の暑さ指数`,
       description: shareDescription,
       images: [ogImageUrl],
+    },
+    // メタデータのキャッシュを防ぐため現在時刻を含める
+    other: {
+      'last-modified': currentTime,
     }
   }
 }

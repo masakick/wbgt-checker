@@ -97,7 +97,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
   
   // 固定OGP画像
-  const ogImageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://atsusa.jp'}/og-image.svg`
+  const ogImageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://atsusa.jp'}/og-image.png`
   
   // 固定のブランド情報（リアルタイム情報なし）
   const shareDescription = `${locationInfo.name}（${locationInfo.prefecture}）の暑さ指数をリアルタイムで確認。全国840地点対応の熱中症予防サイト`

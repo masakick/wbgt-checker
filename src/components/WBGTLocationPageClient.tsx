@@ -75,7 +75,10 @@ export function WBGTLocationPageClient({
           {/* 共有ボタンエリア */}
           <ShareButtons
             location={wbgtData.locationName}
+            prefecture={wbgtData.prefecture}
             wbgt={wbgtData.wbgt}
+            level={levelInfo}
+            timestamp={formatJapaneseTime(wbgtData.timestamp)}
             pageUrl={pageUrl}
             qrCodeUrl={pageUrl}
           />

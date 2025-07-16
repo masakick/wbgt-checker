@@ -5,14 +5,23 @@ import { Share2, Twitter, MessageCircle } from "lucide-react"
 
 interface ShareButtonsProps {
   location: string
+  prefecture: string
   wbgt: number
+  level: {
+    label: string
+    level: number
+  }
+  timestamp: string
   pageUrl: string
   qrCodeUrl: string
 }
 
 export function ShareButtons({
   location,
+  prefecture,
   wbgt,
+  level,
+  timestamp,
   pageUrl,
   qrCodeUrl
 }: ShareButtonsProps) {
@@ -23,11 +32,27 @@ export function ShareButtons({
     setCanShare(typeof navigator !== 'undefined' && 'share' in navigator)
   }, [])
 
-  const shareText = `${location}の暑さ指数は${wbgt}°Cです。`
-  const hashtags = "暑さ指数チェッカー"
+  // 警戒レベル絵文字マッピング
+  const getLevelEmoji = (levelNum: number) => {
+    switch (levelNum) {
+      case 1: return '🟦' // ほぼ安全
+      case 2: return '🟩' // 注意
+      case 3: return '🟨' // 警戒
+      case 4: return '🟧' // 厳重警戒
+      case 5: return '🟥' // 危険
+      default: return '⚪'
+    }
+  }
+
+  // X共有用の詳細テキスト
+  const twitterShareText = `${location}（${prefecture}）の暑さ指数：${wbgt}°C${getLevelEmoji(level.level)}${level.label}(${timestamp}更新) #暑さ指数チェッカー`
+  
+  // 一般共有用のシンプルテキスト
+  const simpleShareText = `${location}の暑さ指数は${wbgt}°Cです。`
 
   const handleTwitterShare = () => {
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&hashtags=${encodeURIComponent(hashtags)}&url=${encodeURIComponent(pageUrl)}`
+    // X（Twitter）にはリアルタイム詳細情報を投稿
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterShareText)}&url=${encodeURIComponent(pageUrl)}`
     window.open(url, '_blank')
   }
 
@@ -40,7 +65,7 @@ export function ShareButtons({
     try {
       await navigator.share({
         title: `${location}の暑さ指数`,
-        text: shareText,
+        text: simpleShareText,
         url: pageUrl,
       })
     } catch (error) {

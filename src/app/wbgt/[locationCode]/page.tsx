@@ -78,14 +78,13 @@ export async function generateStaticParams() {
   }))
 }
 
-// キャッシュを無効化して常に最新データを取得
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+// ISRで定期的に更新
+export const revalidate = 300 // 5分間隔
 
 // 840地点すべてに対応するため、未生成パラメータを動的に生成
 export const dynamicParams = true
 
-// メタデータ生成 - リアルタイムOGP対応
+// メタデータ生成 - 固定ブランド情報
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locationCode } = await params
   const locationInfo = getLocationInfoSync(locationCode)
@@ -97,32 +96,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
   }
   
-  // Get current WBGT data for share text (bypass cache for OGP)
-  const wbgtData = await getWBGTData(locationCode)
-  const { getWBGTLevel } = await import('@/lib/data-processor')
-  const { formatJapaneseTime } = await import('@/lib/format-time')
-  
-  // Force fresh data fetch for OGP by adding cache busting
-  const currentTime = new Date().toISOString()
-  
   // 固定OGP画像
-  const ogImageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com'}/og-image.svg`
+  const ogImageUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://atsusa.jp'}/og-image.svg`
   
-  // SNSシェア用の文字情報を作成
-  let shareDescription = `${locationInfo.name}（${locationInfo.prefecture}）の暑さ指数をリアルタイムで確認`
-  
-  if (wbgtData) {
-    const levelInfo = getWBGTLevel(wbgtData.wbgt)
-    const updateTime = formatJapaneseTime(wbgtData.timestamp)
-    shareDescription = `【${levelInfo.label}】${locationInfo.name} 暑さ指数${wbgtData.wbgt}°C (${updateTime}更新) - 熱中症予防情報`
-  }
+  // 固定のブランド情報（リアルタイム情報なし）
+  const shareDescription = `${locationInfo.name}（${locationInfo.prefecture}）の暑さ指数をリアルタイムで確認。全国840地点対応の熱中症予防サイト`
   
   return {
     title: `${locationInfo.name}の暑さ指数 - 熱中症予防情報`,
     description: `${locationInfo.name}（${locationInfo.prefecture}）の暑さ指数（WBGT）をリアルタイムで確認。21時点詳細予報と運動指針で熱中症を予防しましょう。`,
     manifest: `/api/manifest/${locationCode}`,
     openGraph: {
-      title: `${locationInfo.name}の暑さ指数`,
+      title: `${locationInfo.name}の暑さ指数 - 熱中症予防情報`,
       description: shareDescription,
       url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://atsusa.jp'}/wbgt/${locationCode}`,
       type: 'website',
@@ -137,14 +122,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${locationInfo.name}の暑さ指数`,
+      title: `${locationInfo.name}の暑さ指数 - 熱中症予防情報`,
       description: shareDescription,
       images: [ogImageUrl],
     },
-    // メタデータのキャッシュを防ぐため現在時刻を含める
-    other: {
-      'last-modified': currentTime,
-    }
   }
 }
 

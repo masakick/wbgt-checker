@@ -45,7 +45,7 @@ export function ShareButtons({
   }
 
   // X共有用の詳細テキスト
-  const twitterShareText = `${location}（${prefecture}）の暑さ指数：${wbgt}°C${getLevelEmoji(level.level)}${level.label}(${timestamp}更新) #暑さ指数チェッカー`
+  const twitterShareText = `${location}（${prefecture}）の暑さ指数：${wbgt}${getLevelEmoji(level.level)}${level.label}(${timestamp}更新) #暑さ指数チェッカー`
   
   // 一般共有用のシンプルテキスト
   const simpleShareText = `${location}の暑さ指数は${wbgt}°Cです。`

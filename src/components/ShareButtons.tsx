@@ -35,11 +35,11 @@ export function ShareButtons({
   // 警戒レベル絵文字マッピング
   const getLevelEmoji = (levelNum: number) => {
     switch (levelNum) {
-      case 1: return '🟦' // ほぼ安全
-      case 2: return '🟩' // 注意
-      case 3: return '🟨' // 警戒
-      case 4: return '🟧' // 厳重警戒
-      case 5: return '🟥' // 危険
+      case 0: return '🟦' // ほぼ安全
+      case 1: return '🟩' // 注意
+      case 2: return '🟨' // 警戒
+      case 3: return '🟧' // 厳重警戒
+      case 4: return '🟥' // 危険
       default: return '⚪'
     }
   }

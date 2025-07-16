@@ -78,7 +78,7 @@ export default function FullMockupPage() {
           location="東京"
           prefecture="東京都"
           wbgt={28.5}
-          level={{ level: 4, label: "厳重警戒", guidance: "激しい運動は中止" }}
+          level={{ level: 4, label: "厳重警戒" }}
           timestamp="6月20日 14時40分"
           pageUrl="https://atsusa.jp/wbgt/44132.html"
           qrCodeUrl="/qr/https_atsusa.jp_wbgt_44132.html.png"

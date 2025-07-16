@@ -79,7 +79,7 @@ export async function generateStaticParams() {
 }
 
 // ISRで定期的に更新
-export const revalidate = 300 // 5分間隔
+export const revalidate = 900 // 15分間隔
 
 // 840地点すべてに対応するため、未生成パラメータを動的に生成
 export const dynamicParams = true
